@@ -125,7 +125,7 @@ def nasad(hlidky: list[dict], wb: Workbook, loni: dict | None, nast: dict) -> di
     por_kat = [kategorie_eskymo(k) or k for k in nast.get('poradi_kategorii') or
                [k['kod'] for k in read_param(wb)['kategorie']]]
     plan = {'zavod': {k: pole.get(k) for k in ('Název závodu', 'Datum závodu', 'Číslo závodu', 'Disciplína')},
-            'nastaveni': nast, 'kategorie': [], 'nesparovana_loni': {}}
+            'nastaveni': nast, 'kategorie': [], 'nesparovana_loni': {}, 'k_rozhodnuti': []}
 
     for i, h in enumerate(hlidky):
         h['kat'] = kategorie_eskymo(h['kat']) or h['kat']
@@ -176,7 +176,18 @@ def nasad(hlidky: list[dict], wb: Workbook, loni: dict | None, nast: dict) -> di
         for e in ents:
             e.setdefault('loni', None)
             e.setdefault('loni_umisteni', None)
-            e.setdefault('vazba', 'nová (loni bez návaznosti)')
+            if 'vazba' not in e:
+                # sdílí člena s loňskou hlídkou, jejíž umístění už zdědila jiná letošní hlídka oddílu
+                osoby = {p for b in e['lode'] for p in b.split()}
+                sdil = [t for t in teams if t['oddil'] == e['oddil'] and osoby & set(t['rgc'])]
+                if sdil:
+                    t = sdil[0]
+                    e['vazba'] = f"jako nová — loni {t['umisteni']} {t['oddil']} zdědila jiná hlídka oddílu"
+                    plan['k_rozhodnuti'].append(
+                        f"{kat.upper()}: dvě letošní hlídky oddílu {e['oddil']} navazují na tutéž loňskou "
+                        f"({t['umisteni']}); umístění zdědila jen jedna — potvrdit, která.")
+                else:
+                    e['vazba'] = 'nová (loni bez návaznosti)'
         nesp = [t for t in teams if t['poradi'] not in obs]
         if nesp:
             plan['nesparovana_loni'][kat] = [f"{t['umisteni']} {t['oddil']} {t['pismeno']}".strip() for t in nesp]
@@ -199,7 +210,32 @@ def nasad(hlidky: list[dict], wb: Workbook, loni: dict | None, nast: dict) -> di
         for i, e in enumerate(poradi, 1):
             e['hrgc'] = f'{kat.upper()}-{i:02d}'
         plan['kategorie'].append({'kat': kat, 'hlidky': poradi})
+    plan['k_rozhodnuti'] += kontrola_clenu(plan, reg)
     return plan
+
+
+def kontrola_clenu(plan: dict, reg) -> list[str]:
+    """P 2.09.02 / 2.39.03: žena v mužské i ženské hlídce téže lodi, víc než 3 hlídky, 2× v kategorii."""
+    kde = defaultdict(list)
+    for k in plan['kategorie']:
+        for h in k['hlidky']:
+            for b in h['lode']:
+                for p in b.split():
+                    kde[p].append(k['kat'])
+    out = []
+    for p, kats in kde.items():
+        o = reg.get(p)
+        jm = f'{o.cele_jmeno} ({p})' if o else p
+        for k in sorted(set(kats)):
+            if kats.count(k) > 1:
+                out.append(f'{jm} je ve {kats.count(k)} hlídkách kategorie {k.upper()} — v kategorii smí jen jednou.')
+        if len(kats) > 3:
+            out.append(f'{jm} je v {len(kats)} hlídkách — na MČR/ČP/NKZ max. 3 družstva (P 2.39.03).')
+        for lod in ('k1', 'c1', 'c2'):
+            if f'{lod}m' in kats and f'{lod}z' in kats:
+                out.append(f'{jm} je v mužské i ženské hlídce {lod.upper()} — žena smí v mužském družstvu jen když '
+                           'nejede v ženském družstvu téže lodní kategorie (P 2.09.02).')
+    return out
 
 
 # ---------- 3) zápis ----------
@@ -266,6 +302,10 @@ def prehled(plan: dict) -> str:
             L.append(f"\n! Loňské hlídky bez letošní návaznosti: {', '.join(plan['nesparovana_loni'][k['kat']])} "
                      '— zkontroluj přejmenované oddíly (oddil_alias) a přestupy.')
         L.append('')
+    if plan.get('k_rozhodnuti'):
+        L += ['## K rozhodnutí pořadatele', *(f'- {x}' for x in dict.fromkeys(plan['k_rozhodnuti'])), '']
+    if plan.get('opravy_sablony'):
+        L += ['## Opravy šablony (jen ve výstupní kopii)', *(f'- {x}' for x in plan['opravy_sablony']), '']
     return '\n'.join(L)
 
 
@@ -309,6 +349,9 @@ def main(argv=None):
     except C.ChybaCisel as e:
         print(f'ČÍSLOVÁNÍ: {e}', file=sys.stderr)
         return 1
+    if res['uuper']:
+        plan['opravy_sablony'] = [f"překlep uuper( → UPPER( ve vzorcích listu hlidky ({res['uuper']} buněk; "
+                                  'jinak #NAME? ve VT u C2 hlídek) — nahlásit autorovi Eskyma']
     wb.save(a.vystup)
     json.dump(plan, open(a.plan, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     if res['uuper']:

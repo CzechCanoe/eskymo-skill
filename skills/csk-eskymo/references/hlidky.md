@@ -40,6 +40,10 @@ Návaznost letošní hlídky na loňskou, v tomto pořadí:
 4. jinak **nová** → na začátek, mezi sebou od nejslabší VT (`nove_razeni`).
 
 Pak startovní pořadí: nové, potom navazující od loňského nejhoršího k vítězi.
+Přehled končí sekcí **K rozhodnutí pořadatele**: dvě letošní hlídky navazující na tutéž loňskou
+(„jako nová — umístění zdědila jiná hlídka oddílu“), člověk ve dvou hlídkách jedné kategorie, víc než
+3 hlídky na závodníka (P 2.39.03), žena v mužské i ženské hlídce téže lodi (P 2.09.02). Prohlídky:
+hlídková startovka `#` nezobrazuje — `verify_workbook.py` je vypíše z registru.
 Přehled ukáže u každé hlídky „nasazeno podle“ a na konci **loňské hlídky bez návaznosti** — to je
 signál přejmenovaného oddílu (zkratky se mezi roky mění, např. `Vys.Mýto` → `SKK VM` →
 `oddil_alias`) nebo přestupu. Sporné (dvě letošní hlídky z jedné loňské, dělená místa, přestup)

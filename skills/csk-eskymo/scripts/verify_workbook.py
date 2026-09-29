@@ -56,11 +56,20 @@ def zkontroluj(path: str, plan=None, lode=None, vysledky=False, cisla_v_kategori
     pocty, rgc_v_kat, vsechna_stc = {}, defaultdict(list), []
 
     if hlidky and wb.has('hlidky'):
+        from registr import Registr
+        reg = Registr.ze_sesitu(wb)
         for r, row in enumerate(wb.sheet('hlidky').values(max_cols=12)[1:], start=2):
             if row and not _prazdne(row[0]):
                 for c, v in enumerate(row):
                     if _je_chyba(v):
                         P.append(f'hlidky ř.{r} ({row[0]}): chyba vzorce ve sloupci {"ABCDEFGHIJKL"[c]} → {v}')
+                # hlídkové vzorce značku # u ročníku nezobrazují → prohlídky zkontrolovat z registru
+                for v in (list(row) + [None] * 6)[2:5]:
+                    for x in str(norm_rgc(v)).split():
+                        o = reg.get(x)
+                        if o and o.prohlidka is False:
+                            I.append(f'hlidky {row[0]}: {o.cele_jmeno} ({x}) — bez platné lékařské prohlídky '
+                                     '(v hlídkové startovce se # nezobrazuje)')
 
     for kat in kats:
         if not wb.has(f'{kat}_sl'):
@@ -108,11 +117,14 @@ def zkontroluj(path: str, plan=None, lode=None, vysledky=False, cisla_v_kategori
     ocekavano = {}
     if plan:
         for k in plan['kategorie']:
-            ocekavano[k['kat']] = [norm_rgc(' '.join(p['rgc'])) for p in k['lode']]
+            if 'hlidky' in k:          # plán z hlidky.py: klíčem je H-RGC
+                ocekavano[k['kat']] = [h['hrgc'] for h in k['hlidky']]
+            else:
+                ocekavano[k['kat']] = [norm_rgc(' '.join(p['rgc'])) for p in k['lode']]
     elif lode:
         for l in lode:
             ocekavano.setdefault(l['kat'], []).append(norm_rgc(' '.join(l['rgc'])))
-    if ocekavano and not hlidky:
+    if ocekavano and (not hlidky or plan):
         for kat, exp in ocekavano.items():
             got = rgc_v_kat.get(kat, [])
             if Counter(got) != Counter(exp):

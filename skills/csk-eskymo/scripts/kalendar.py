@@ -122,7 +122,12 @@ def navrh_eskymo(z: dict) -> dict:
     for k in ('pzk', 'pzc'):
         if k in poradi and k not in kat:
             kat.append(k)
-    jizd = 1 if re.search(r'jedn[aé] jízd|1 jízd', porad) else (2 if 'obě jízdy' in porad or esk_disc == 'slalom' else None)
+    if re.search(r'jedn[aé] jízd|1 jízd', porad) or esk_disc == 'sjezd':
+        jizd = 1                       # klasický sjezd = 1 jízda (P 3.11.05)
+    elif 'obě jízdy' in porad or esk_disc in ('slalom', 'sprint'):
+        jizd = 2                       # slalom a sprint = 2 jízdy, lepší platí (P 3.05, 3.11.03)
+    else:
+        jizd = None
     return {
         'nazev': {'hodnota': z.get('nazev'), 'zdroj': 'rozpis'},
         'misto': {'hodnota': z.get('Centrum, trať'), 'zdroj': 'rozpis (zkrátit na místo)'},

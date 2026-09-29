@@ -229,9 +229,10 @@ def test_hlidky():
     run('hlidky.py', 'nasad', os.path.join(FIX, 'hlidky.json'), os.path.join(FIX, 'hlidky_sprint.ods'),
         '--loni', t('loni.json'), '-c', t('hnast.json'), '-o', t('hplan.json'))
     plan = json.load(open(t('hplan.json'), encoding='utf-8'))
+    assert any('P 2.09.02' in x for x in plan['k_rozhodnuti']), plan['k_rozhodnuti']
     for k in plan['kategorie']:
         vazby = [h['vazba'] for h in k['hlidky']]
-        assert vazby[0].startswith('nová'), vazby          # nová hlídka jde na začátek
+        assert 'nová' in vazby[0], vazby                   # nová (i „jako nová“ při sdílené návaznosti) jde na začátek
         assert all(v.startswith('osoba') for v in vazby[1:]), vazby
         loni_por = [h['loni'] for h in k['hlidky'][1:]]
         assert loni_por == sorted(loni_por, reverse=True)  # vítěz poslední
@@ -242,6 +243,9 @@ def test_hlidky():
     assert wb.sheet('c1m_sl').get(2, 15) == 'C1M-01' and wb.sheet('c1m_sl').get(2, 1) == 40.0
     assert not any('uuper(' in (v or '') for row in wb.sheet('hlidky').values(max_rows=5, max_cols=48, formulas=True)
                    for v in row if isinstance(v, str))
+    if have_lo():   # kontrola proti plánu hlídek (H-RGC) + prohlídky z registru
+        out = run('verify_workbook.py', t('hlidky_out.ods'), '--plan', t('hplan.json'))
+        assert 'OK — žádné problémy' in out, out
 
 
 # ---------- výsledky ----------

@@ -1,0 +1,43 @@
+{
+ "skill_name": "csk-eskymo",
+ "evals": [
+  {
+   "id": 1,
+   "name": "vpz-startovka",
+   "prompt": "Ahoj, v sobotu pořádáme OČ slalom (závod č. 135, BHZ 4). Ve složce inputs/ je export přihlášek z přihlašovacího systému (prihlasky.csv) a prázdný sešit, který jsem založil v Eskymu a naimportoval registr (slalom.ods). Potřebuju startovku: los podle VT tak, jak to dělá Eskymo (nejslabší první), čísla po kategoriích podle pravidel, dres číslo 13 nemáme. Pořadí na startu: 1. skupina K1m, C1ž, C2m, předžáci K1; 2. skupina C1m, předžáci C1, K1ž, C2mix. Hotový sešit ulož do outputs/.",
+   "expected_output": "outputs/*.ods se startovkami všech platných lodí závodu 135 (bez nedělní lodi a bez neznámého RGC 999999, předžáci v pzk/pzc), VT skupiny od nejslabší, čísla po kategoriích od čísla končícího 1, bez 13; odpověď hlásí sporné případy a další kroky v Eskymu.",
+   "files": [
+    "inputs/prihlasky.csv",
+    "inputs/slalom.ods"
+   ]
+  },
+  {
+   "id": 2,
+   "name": "mcr-hlidky",
+   "prompt": "Děláme MČR družstev ve sprintu. V inputs/ je šablona hlídek z Eskyma (hlidky_sprint.ods), letošní přihlášené hlídky (hlidky.json – od oddílů zatím jen první lodě) a loňské výsledky (loni_hlidky.xlsx, export z Eskyma). Nasaď hlídky podle směrnic, pořadí kategorií C1M, K1Ž, K1M. Startovní čísla klesající od 40, mezi kategoriemi nech 3 volná na dohlášky, číslo 33 nemáme. Hotovou startovku ulož do outputs/ a napiš mi, co mám zkontrolovat.",
+   "expected_output": "outputs/*.ods: list hlidky + startovky, v každé kategorii nová hlídka (bez loňska) první a navazující v obráceném pořadí loňských výsledků; čísla 40 dolů s rezervou 3 mezi kategoriemi, 33 vynecháno; opravený překlep uuper; odpověď se seznamem ke kontrole.",
+   "files": [
+    "inputs/hlidky_sprint.ods",
+    "inputs/hlidky.json",
+    "inputs/loni_hlidky.xlsx"
+   ]
+  },
+  {
+   "id": 3,
+   "name": "canoe123-vysledky",
+   "prompt": "Z Canoe123 mám export (inputs/canoe123.xml) ze sobotního slalomu (15. 8., závod č. 135). Převeď prosím výsledky do Eskyma – prázdný sešit s registrem je inputs/slalom.ods. Výstup dej do outputs/.",
+   "expected_output": "outputs/*.ods se startovkami i časy obou jízd; ženy K1Z zařazené; neznámá třída XYZ nahlášena; každá jízda má čas nebo stav (DNS/DNF + 999); cizinec spárován s cizi; param datum a číslo; odpověď připomene Ctrl+Shift+F9 a body.",
+   "files": [
+    "inputs/canoe123.xml",
+    "inputs/slalom.ods"
+   ]
+  },
+  {
+   "id": 4,
+   "name": "pravidla-cpw",
+   "prompt": "Pořádáme letos ČP ve sjezdu (klasik). Jak přesně máme sestavit startovku a přidělit startovní čísla? A co s lidmi, kteří v průběžném pořadí nejsou? Odpověď mi napiš i do outputs/odpoved.md.",
+   "expected_output": "Obrácené průběžné pořadí (od nejhorších k nejlepším, z klasických sjezdů; 1. a 2. ČPw podle loňského žebříčku), podklady od počtářky, čísla od nejvyššího, poslední v kategorii = 1; nezařazení Směrnice neřeší → rozhodne pořadatel/VR (návrh); citace Směrnic 2026; pořadí kategorií C1M, K1Ž, K1M, C1Ž, C2M.",
+   "files": []
+  }
+ ]
+}
