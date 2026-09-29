@@ -1,0 +1,684 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<Canoe123Data xmlns="http://siwidata.com/Canoe123/Data.xsd">
+  <Participants>
+    <Id>9012.K1M</Id>
+    <ClassId>K1M</ClassId>
+    <EventBib>1</EventBib>
+    <ICFId>9012</ICFId>
+    <FamilyName>VANĚK</FamilyName>
+    <GivenName>Lukáš</GivenName>
+    <Club>USK Praha</Club>
+    <Birthdate>1967-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>121023.K1M</Id>
+    <ClassId>K1M</ClassId>
+    <EventBib>2</EventBib>
+    <ICFId>121023</ICFId>
+    <FamilyName>FIALA</FamilyName>
+    <GivenName>Josef</GivenName>
+    <Club>KK Opava</Club>
+    <Birthdate>2004-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>121030.K1M</Id>
+    <ClassId>K1M</ClassId>
+    <EventBib>3</EventBib>
+    <ICFId>121030</ICFId>
+    <FamilyName>HÁJEK</FamilyName>
+    <GivenName>David</GivenName>
+    <Club>KK Opava</Club>
+    <Birthdate>2008-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>129031.K1M</Id>
+    <ClassId>K1M</ClassId>
+    <EventBib>4</EventBib>
+    <ICFId>129031</ICFId>
+    <FamilyName>HOLUB</FamilyName>
+    <GivenName>Jakub</GivenName>
+    <Club>TJ Šumperk</Club>
+    <Birthdate>2007-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>12023.K1M</Id>
+    <ClassId>K1M</ClassId>
+    <EventBib>5</EventBib>
+    <ICFId>12023</ICFId>
+    <FamilyName>KŘÍŽ</FamilyName>
+    <GivenName>Lukáš</GivenName>
+    <Club>Dukla Brandýs</Club>
+    <Birthdate>1973-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>119023.K1M</Id>
+    <ClassId>K1M</ClassId>
+    <EventBib>6</EventBib>
+    <ICFId>119023</ICFId>
+    <FamilyName>VANĚK</FamilyName>
+    <GivenName>David</GivenName>
+    <Club>UP Olomouc</Club>
+    <Birthdate>2003-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>9003.K1M</Id>
+    <ClassId>K1M</ClassId>
+    <EventBib>7</EventBib>
+    <ICFId>9003</ICFId>
+    <FamilyName>VLČEK</FamilyName>
+    <GivenName>Josef</GivenName>
+    <Club>USK Praha</Club>
+    <Birthdate>1970-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>119007.K1M</Id>
+    <ClassId>K1M</ClassId>
+    <EventBib>8</EventBib>
+    <ICFId>119007</ICFId>
+    <FamilyName>KUČERA</FamilyName>
+    <GivenName>David</GivenName>
+    <Club>UP Olomouc</Club>
+    <Birthdate>1992-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>9025.K1M</Id>
+    <ClassId>K1M</ClassId>
+    <EventBib>9</EventBib>
+    <ICFId>9025</ICFId>
+    <FamilyName>DOLEŽAL</FamilyName>
+    <GivenName>Petr</GivenName>
+    <Club>USK Praha</Club>
+    <Birthdate>1973-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>9015.K1M</Id>
+    <ClassId>K1M</ClassId>
+    <EventBib>10</EventBib>
+    <ICFId>9015</ICFId>
+    <FamilyName>KOLÁŘ</FamilyName>
+    <GivenName>Martin</GivenName>
+    <Club>USK Praha</Club>
+    <Birthdate>1996-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>64022.K1Z</Id>
+    <ClassId>K1Z</ClassId>
+    <EventBib>11</EventBib>
+    <ICFId>64022</ICFId>
+    <FamilyName>PROCHÁZKOVÁ</FamilyName>
+    <GivenName>Jana</GivenName>
+    <Club>SKK Vysoké Mýto</Club>
+    <Birthdate>1996-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>12024.K1Z</Id>
+    <ClassId>K1Z</ClassId>
+    <EventBib>12</EventBib>
+    <ICFId>12024</ICFId>
+    <FamilyName>KUČEROVÁ</FamilyName>
+    <GivenName>Anna</GivenName>
+    <Club>Dukla Brandýs</Club>
+    <Birthdate>2004-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>119019.K1Z</Id>
+    <ClassId>K1Z</ClassId>
+    <EventBib>13</EventBib>
+    <ICFId>119019</ICFId>
+    <FamilyName>HOLUBOVÁ</FamilyName>
+    <GivenName>Marie</GivenName>
+    <Club>UP Olomouc</Club>
+    <Birthdate>2002-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>39032.K1Z</Id>
+    <ClassId>K1Z</ClassId>
+    <EventBib>14</EventBib>
+    <ICFId>39032</ICFId>
+    <FamilyName>KONEČNÁ</FamilyName>
+    <GivenName>Ema</GivenName>
+    <Club>TJ Loko Plzeň</Club>
+    <Birthdate>2005-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>57010.K1Z</Id>
+    <ClassId>K1Z</ClassId>
+    <EventBib>15</EventBib>
+    <ICFId>57010</ICFId>
+    <FamilyName>MALÁ</FamilyName>
+    <GivenName>Petra</GivenName>
+    <Club>TJ Syntézia Pardub.</Club>
+    <Birthdate>1986-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>119004.K1Z</Id>
+    <ClassId>K1Z</ClassId>
+    <EventBib>16</EventBib>
+    <ICFId>119004</ICFId>
+    <FamilyName>KŘÍŽOVÁ</FamilyName>
+    <GivenName>Zuzana</GivenName>
+    <Club>UP Olomouc</Club>
+    <Birthdate>2006-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>64023.C1M</Id>
+    <ClassId>C1M</ClassId>
+    <EventBib>17</EventBib>
+    <ICFId>64023</ICFId>
+    <FamilyName>SVOBODA</FamilyName>
+    <GivenName>Petr</GivenName>
+    <Club>SKK Vysoké Mýto</Club>
+    <Birthdate>1973-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>12012.C1M</Id>
+    <ClassId>C1M</ClassId>
+    <EventBib>18</EventBib>
+    <ICFId>12012</ICFId>
+    <FamilyName>ŠTĚPÁNEK</FamilyName>
+    <GivenName>Daniel</GivenName>
+    <Club>Dukla Brandýs</Club>
+    <Birthdate>1966-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>1006.C1M</Id>
+    <ClassId>C1M</ClassId>
+    <EventBib>19</EventBib>
+    <ICFId>1006</ICFId>
+    <FamilyName>FIALA</FamilyName>
+    <GivenName>Tomáš</GivenName>
+    <Club>Bohemians Praha</Club>
+    <Birthdate>2010-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>39004.C1M</Id>
+    <ClassId>C1M</ClassId>
+    <EventBib>20</EventBib>
+    <ICFId>39004</ICFId>
+    <FamilyName>VLČEK</FamilyName>
+    <GivenName>Vojtěch</GivenName>
+    <Club>TJ Loko Plzeň</Club>
+    <Birthdate>2009-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>9018.C1M</Id>
+    <ClassId>C1M</ClassId>
+    <EventBib>21</EventBib>
+    <ICFId>9018</ICFId>
+    <FamilyName>MALÝ</FamilyName>
+    <GivenName>David</GivenName>
+    <Club>USK Praha</Club>
+    <Birthdate>1962-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>1028.C2M</Id>
+    <ClassId>C2M</ClassId>
+    <EventBib>22</EventBib>
+    <ICFId>1028</ICFId>
+    <ICFId2>1023</ICFId2>
+    <FamilyName>SEDLÁČEK</FamilyName>
+    <GivenName>Pavel</GivenName>
+    <FamilyName2>PROCHÁZKA</FamilyName2>
+    <GivenName2>Tomáš</GivenName2>
+    <Club>Bohemians Praha</Club>
+    <Birthdate>2006-01-01T11:00:00+01:00</Birthdate>
+    <Birthdate2>2009-01-01T11:00:00+01:00</Birthdate2>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>9019129003.C2M</Id>
+    <ClassId>C2M</ClassId>
+    <EventBib>23</EventBib>
+    <ICFId>9019129003</ICFId>
+    <FamilyName>PROCHÁZKA</FamilyName>
+    <GivenName>Pavel</GivenName>
+    <FamilyName2>DOLEŽAL</FamilyName2>
+    <GivenName2>Daniel</GivenName2>
+    <Club>USK Praha</Club>
+    <Birthdate>1967-01-01T11:00:00+01:00</Birthdate>
+    <Birthdate2>1996-01-01T11:00:00+01:00</Birthdate2>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>639199000000000024</Id>
+    <ClassId>C1M</ClassId>
+    <EventBib>24</EventBib>
+    <ICFId/>
+    <FamilyName>SMITH</FamilyName>
+    <GivenName>Tom</GivenName>
+    <Club>GBR</Club>
+    <Birthdate>1990-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Participants>
+    <Id>57027.XYZ</Id>
+    <ClassId>XYZ</ClassId>
+    <EventBib>25</EventBib>
+    <ICFId>57027</ICFId>
+    <FamilyName>URBAN</FamilyName>
+    <GivenName>Matěj</GivenName>
+    <Club>TJ Syntézia Pardub.</Club>
+    <Birthdate>1998-01-01T11:00:00+01:00</Birthdate>
+    <IsTeam>false</IsTeam>
+  </Participants>
+  <Results>
+    <RaceId>K1M_BR1_15</RaceId>
+    <Id>9012.K1M</Id>
+    <Bib>   1</Bib>
+    <Status/>
+    <Time>110962</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR2_15</RaceId>
+    <Id>9012.K1M</Id>
+    <Bib>   1</Bib>
+    <Status/>
+    <Time>127855</Time>
+    <Pen>50</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR1_15</RaceId>
+    <Id>121023.K1M</Id>
+    <Bib>   2</Bib>
+    <Status/>
+    <Time>127603</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR2_15</RaceId>
+    <Id>121023.K1M</Id>
+    <Bib>   2</Bib>
+    <Status/>
+    <Time>125837</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR1_15</RaceId>
+    <Id>121030.K1M</Id>
+    <Bib>   3</Bib>
+    <Status/>
+    <Time>119627</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR2_15</RaceId>
+    <Id>121030.K1M</Id>
+    <Bib>   3</Bib>
+    <Status>DNS</Status>
+    <Time/>
+    <Pen/>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR1_15</RaceId>
+    <Id>129031.K1M</Id>
+    <Bib>   4</Bib>
+    <Status>DNF</Status>
+    <Time/>
+    <Pen/>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR2_15</RaceId>
+    <Id>129031.K1M</Id>
+    <Bib>   4</Bib>
+    <Status/>
+    <Time>88902</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR1_15</RaceId>
+    <Id>12023.K1M</Id>
+    <Bib>   5</Bib>
+    <Status/>
+    <Time>97465</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR2_15</RaceId>
+    <Id>12023.K1M</Id>
+    <Bib>   5</Bib>
+    <Status/>
+    <Time/>
+    <Pen/>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR1_15</RaceId>
+    <Id>119023.K1M</Id>
+    <Bib>   6</Bib>
+    <Status/>
+    <Time>124296</Time>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR2_15</RaceId>
+    <Id>119023.K1M</Id>
+    <Bib>   6</Bib>
+    <Status/>
+    <Time>86971</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR1_15</RaceId>
+    <Id>9003.K1M</Id>
+    <Bib>   7</Bib>
+    <Status/>
+    <Time>106383</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR2_15</RaceId>
+    <Id>9003.K1M</Id>
+    <Bib>   7</Bib>
+    <Status/>
+    <Time>123729</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR1_15</RaceId>
+    <Id>119007.K1M</Id>
+    <Bib>   8</Bib>
+    <Status/>
+    <Time>119021</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR2_15</RaceId>
+    <Id>119007.K1M</Id>
+    <Bib>   8</Bib>
+    <Status/>
+    <Time>126962</Time>
+    <Pen>2</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR1_15</RaceId>
+    <Id>9025.K1M</Id>
+    <Bib>   9</Bib>
+    <Status/>
+    <Time>117753</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR2_15</RaceId>
+    <Id>9025.K1M</Id>
+    <Bib>   9</Bib>
+    <Status/>
+    <Time>128414</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR1_15</RaceId>
+    <Id>9015.K1M</Id>
+    <Bib>  10</Bib>
+    <Status/>
+    <Time>114971</Time>
+    <Pen>2</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1M_BR2_15</RaceId>
+    <Id>9015.K1M</Id>
+    <Bib>  10</Bib>
+    <Status/>
+    <Time>111658</Time>
+    <Pen>50</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR1_15</RaceId>
+    <Id>64022.K1Z</Id>
+    <Bib>  11</Bib>
+    <Status/>
+    <Time>90452</Time>
+    <Pen>2</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR2_15</RaceId>
+    <Id>64022.K1Z</Id>
+    <Bib>  11</Bib>
+    <Status/>
+    <Time>105662</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR1_15</RaceId>
+    <Id>12024.K1Z</Id>
+    <Bib>  12</Bib>
+    <Status/>
+    <Time>118612</Time>
+    <Pen>2</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR2_15</RaceId>
+    <Id>12024.K1Z</Id>
+    <Bib>  12</Bib>
+    <Status/>
+    <Time>86949</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR1_15</RaceId>
+    <Id>119019.K1Z</Id>
+    <Bib>  13</Bib>
+    <Status/>
+    <Time>121906</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR2_15</RaceId>
+    <Id>119019.K1Z</Id>
+    <Bib>  13</Bib>
+    <Status/>
+    <Time>111240</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR1_15</RaceId>
+    <Id>39032.K1Z</Id>
+    <Bib>  14</Bib>
+    <Status/>
+    <Time>104064</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR2_15</RaceId>
+    <Id>39032.K1Z</Id>
+    <Bib>  14</Bib>
+    <Status/>
+    <Time>89379</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR1_15</RaceId>
+    <Id>57010.K1Z</Id>
+    <Bib>  15</Bib>
+    <Status/>
+    <Time>129885</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR2_15</RaceId>
+    <Id>57010.K1Z</Id>
+    <Bib>  15</Bib>
+    <Status/>
+    <Time>98992</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR1_15</RaceId>
+    <Id>119004.K1Z</Id>
+    <Bib>  16</Bib>
+    <Status/>
+    <Time>88429</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>K1Z_BR2_15</RaceId>
+    <Id>119004.K1Z</Id>
+    <Bib>  16</Bib>
+    <Status/>
+    <Time>109606</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR1_15</RaceId>
+    <Id>64023.C1M</Id>
+    <Bib>  17</Bib>
+    <Status/>
+    <Time>112511</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR2_15</RaceId>
+    <Id>64023.C1M</Id>
+    <Bib>  17</Bib>
+    <Status/>
+    <Time>122109</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR1_15</RaceId>
+    <Id>12012.C1M</Id>
+    <Bib>  18</Bib>
+    <Status/>
+    <Time>129230</Time>
+    <Pen>2</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR2_15</RaceId>
+    <Id>12012.C1M</Id>
+    <Bib>  18</Bib>
+    <Status/>
+    <Time>107078</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR1_15</RaceId>
+    <Id>1006.C1M</Id>
+    <Bib>  19</Bib>
+    <Status/>
+    <Time>105395</Time>
+    <Pen>2</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR2_15</RaceId>
+    <Id>1006.C1M</Id>
+    <Bib>  19</Bib>
+    <Status/>
+    <Time>85992</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR1_15</RaceId>
+    <Id>39004.C1M</Id>
+    <Bib>  20</Bib>
+    <Status/>
+    <Time>92732</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR2_15</RaceId>
+    <Id>39004.C1M</Id>
+    <Bib>  20</Bib>
+    <Status/>
+    <Time>101147</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR1_15</RaceId>
+    <Id>9018.C1M</Id>
+    <Bib>  21</Bib>
+    <Status/>
+    <Time>85717</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR2_15</RaceId>
+    <Id>9018.C1M</Id>
+    <Bib>  21</Bib>
+    <Status/>
+    <Time>115470</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>C2M_BR1_15</RaceId>
+    <Id>1028.C2M</Id>
+    <Bib>  22</Bib>
+    <Status/>
+    <Time>96644</Time>
+    <Pen>50</Pen>
+  </Results>
+  <Results>
+    <RaceId>C2M_BR2_15</RaceId>
+    <Id>1028.C2M</Id>
+    <Bib>  22</Bib>
+    <Status/>
+    <Time>97346</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>C2M_BR1_15</RaceId>
+    <Id>9019129003.C2M</Id>
+    <Bib>  23</Bib>
+    <Status/>
+    <Time>118349</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>C2M_BR2_15</RaceId>
+    <Id>9019129003.C2M</Id>
+    <Bib>  23</Bib>
+    <Status/>
+    <Time>93583</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR1_15</RaceId>
+    <Id>639199000000000024</Id>
+    <Bib>  24</Bib>
+    <Status/>
+    <Time>127186</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>C1M_BR2_15</RaceId>
+    <Id>639199000000000024</Id>
+    <Bib>  24</Bib>
+    <Status/>
+    <Time>92635</Time>
+    <Pen>4</Pen>
+  </Results>
+  <Results>
+    <RaceId>XYZ_BR1_15</RaceId>
+    <Id>57027.XYZ</Id>
+    <Bib>  25</Bib>
+    <Status/>
+    <Time>112574</Time>
+    <Pen>0</Pen>
+  </Results>
+  <Results>
+    <RaceId>XYZ_BR2_15</RaceId>
+    <Id>57027.XYZ</Id>
+    <Bib>  25</Bib>
+    <Status/>
+    <Time>85030</Time>
+    <Pen>2</Pen>
+  </Results>
+</Canoe123Data>

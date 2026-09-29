@@ -1,0 +1,65 @@
+[
+ {
+  "kat": "c1m",
+  "lode": [
+   "24013"
+  ],
+  "zdroj": "test"
+ },
+ {
+  "kat": "c1m",
+  "lode": [
+   "129026"
+  ],
+  "zdroj": "test"
+ },
+ {
+  "kat": "c1m",
+  "lode": [
+   "121006"
+  ],
+  "zdroj": "test-nova"
+ },
+ {
+  "kat": "k1z",
+  "lode": [
+   "12032"
+  ],
+  "zdroj": "test"
+ },
+ {
+  "kat": "k1z",
+  "lode": [
+   "121010"
+  ],
+  "zdroj": "test"
+ },
+ {
+  "kat": "k1z",
+  "lode": [
+   "121006"
+  ],
+  "zdroj": "test-nova"
+ },
+ {
+  "kat": "k1m",
+  "lode": [
+   "24027"
+  ],
+  "zdroj": "test"
+ },
+ {
+  "kat": "k1m",
+  "lode": [
+   "39020"
+  ],
+  "zdroj": "test"
+ },
+ {
+  "kat": "k1m",
+  "lode": [
+   "121006"
+  ],
+  "zdroj": "test-nova"
+ }
+]

@@ -1,0 +1,14 @@
+# Reálná data pořadatelů (osobní údaje, často nezletilí) — nikdy do gitu
+podklady/
+local/
+*.local.*
+
+# Pracovní a generované soubory
+*-workspace/
+dist/
+__pycache__/
+*.pyc
+.venv/
+*.work/
+tests/**/out/
+~lock.*#

@@ -1,0 +1,10 @@
+{
+  "name": "csk-eskymo",
+  "version": "0.1.0",
+  "description": "Startovky a výsledky závodů ČSK (vodní slalom, sjezd, sprint) v programu Eskymo podle Pravidel ČSK DV a Směrnic pro závodění.",
+  "author": { "name": "CzechCanoe", "url": "https://github.com/CzechCanoe" },
+  "homepage": "https://github.com/CzechCanoe/eskymo-skill",
+  "repository": "https://github.com/CzechCanoe/eskymo-skill",
+  "license": "MIT",
+  "keywords": ["eskymo", "csk", "kanoistika", "slalom", "sjezd", "startovka", "vysledky", "canoe123"]
+}

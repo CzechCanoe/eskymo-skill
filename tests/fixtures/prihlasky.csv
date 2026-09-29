@@ -1,0 +1,49 @@
+kategorie;rgc;jmeno;nar;oddil;vt;vk;zavody;poznamky;poradi;poradi nkz;startovne;zeme;vedouci;kod;disciplina
+K1M;1012;Musil Karel;2009;Bohemians Praha;1;DS;;;1;;200;;Vedoucí Testovací;04042462;slalom
+K1M;119008;Èermák Jiøí;2001;UP Olomouc;1;;;;2;;200;;Vedoucí Testovací;d61f0a5b;slalom
+K1M;129031;Holub Jakub;2007;TJ Šumperk;2;U23;;;3;;200;;Vedoucí Testovací;c551b447;slalom
+K1M;9028;Kopecký Petr;2004;USK Praha;3+;U23;;;4;;200;;Vedoucí Testovací;84f2aa11;slalom
+K1M;24006;Štìpánek Vojtìch;1982;SK Vltava È.Krumlov;2;VM;;;5;;200;;Vedoucí Testovací;e9a1b71f;slalom
+K1M;121008;Koneèný Matìj;2006;KK Opava;3;U23;;;6;;200;;Vedoucí Testovací;de398172;slalom
+K1M;9024;Šimek Petr;2011;USK Praha;2;DM;;;7;;200;;Vedoucí Testovací;84f2aa11;slalom
+K1M;57003;Štìpánek Petr;2010;TJ Syntézia Pardub.;3;DM;;;8;;200;;Vedoucí Testovací;bd8e352a;slalom
+K1M;1014;Horák Michal;2001;Bohemians Praha;3;;;;9;;200;;Vedoucí Testovací;04042462;slalom
+K1M;103030;Dostál Matìj;1980;KK Spoj Brno;3+;V;;;10;;200;;Vedoucí Testovací;797b9522;slalom
+K1M;12005;Horák Adam;1999;Dukla Brandýs;3;;;;11;;200;;Vedoucí Testovací;3f389997;slalom
+K1M;1023;Procházka Tomáš;2009;Bohemians Praha;2+;DS;;;12;;200;;Vedoucí Testovací;04042462;slalom
+K1M;12009;Vlèek Jan;2008;Dukla Brandýs;2;DS;;;13;;200;;Vedoucí Testovací;3f389997;slalom
+K1M;12004;Kopecký Adam;2005;Dukla Brandýs;3;U23;;;14;;200;;Vedoucí Testovací;3f389997;slalom
+K1M;12008;Král Josef;1986;Dukla Brandýs;2;VM;;;15;;200;;Vedoucí Testovací;3f389997;slalom
+K1M;64026;Køíž Michal;1995;SKK Vysoké Mýto;1;;;;16;;200;;Vedoucí Testovací;10abfeef;slalom
+K1M;1018;Marek Josef;2004;Bohemians Praha;2+;U23;;;17;;200;;Vedoucí Testovací;04042462;slalom
+K1M;64006;Dostál David;1972;SKK Vysoké Mýto;3;V;;;18;;200;;Vedoucí Testovací;10abfeef;slalom
+K1W;103012;Procházková Nela;1978;KK Spoj Brno;;V;;;19;;200;;Vedoucí Testovací;797b9522;slalom
+K1W;64005;Koneèná Julie;1988;SKK Vysoké Mýto;;VM;;;20;;200;;Vedoucí Testovací;10abfeef;slalom
+K1W;119018;Dvoøáková Klára;1965;UP Olomouc;3+;VS;;;21;;200;;Vedoucí Testovací;d61f0a5b;slalom
+K1W;9008;Urbanová Kateøina;1965;USK Praha;2;VS;;;22;;200;;Vedoucí Testovací;84f2aa11;slalom
+K1W;103002;Blažková Natálie;1980;KK Spoj Brno;;V;;;23;;200;;Vedoucí Testovací;797b9522;slalom
+K1W;12032;Èermáková Veronika;2008;Dukla Brandýs;2;DS;;;24;;200;;Vedoucí Testovací;3f389997;slalom
+K1W;1016;Horáková Markéta;2009;Bohemians Praha;;DS;;;25;;200;;Vedoucí Testovací;04042462;slalom
+K1W;39006;Zemanová Petra;2004;TJ Loko Plzeò;3;U23;;;26;;200;;Vedoucí Testovací;eb16bddf;slalom
+K1W;103033;Nìmcová Kateøina;1980;KK Spoj Brno;;V;;;27;;200;;Vedoucí Testovací;797b9522;slalom
+C1M;103011;Koláø Vojtìch;1965;KK Spoj Brno;3;VS;;;28;;200;;Vedoucí Testovací;797b9522;slalom
+C1M;57028;Jelínek David;2005;TJ Syntézia Pardub.;2;U23;;;29;;200;;Vedoucí Testovací;bd8e352a;slalom
+C1M;64030;Èerný Matìj;1983;SKK Vysoké Mýto;;VM;;;30;;200;;Vedoucí Testovací;10abfeef;slalom
+C1M;129037;Koneèný Petr;2005;TJ Šumperk;2;U23;;;31;;200;;Vedoucí Testovací;c551b447;slalom
+C1M;121004;Marek Šimon;2011;KK Opava;1;DM;;;32;;200;;Vedoucí Testovací;de398172;slalom
+C1M;129036;Kadlec Pavel;1974;TJ Šumperk;;V;;;33;;200;;Vedoucí Testovací;c551b447;slalom
+C1M;9010;Musil Jan;2011;USK Praha;;DM;;;34;;200;;Vedoucí Testovací;84f2aa11;slalom
+C1M;57002;Svoboda Michal;2005;TJ Syntézia Pardub.;;U23;;;35;;200;;Vedoucí Testovací;bd8e352a;slalom
+C1W;24032;Doležalová Nela;1964;SK Vltava È.Krumlov;2;VS;;;36;;200;;Vedoucí Testovací;e9a1b71f;slalom
+C1W;129015;Vanìková Julie;2010;TJ Šumperk;;DM;;;37;;200;;Vedoucí Testovací;c551b447;slalom
+C1W;64003;Jelínková Zuzana;2012;SKK Vysoké Mýto;3;ZS;;;38;;200;;Vedoucí Testovací;10abfeef;slalom
+C1W;121021;Èerná Tereza;1976;KK Opava;MT;V;;;39;;200;;Vedoucí Testovací;de398172;slalom
+C2M;64008 103015;Polák Jiøí Malý Jiøí;1964 1984;SKK Vysoké Mýto KK Spoj Brno;;VS;;;40;;200;;Vedoucí Testovací;10abfeef;slalom
+C2M;1014 1006;Horák Michal Fiala Tomáš;2001 2010;Bohemians Praha Bohemians Praha;3;;;;41;;200;;Vedoucí Testovací;04042462;slalom
+C2M;103024 129005;Rùžièka David Novák Pavel;2012 2011;KK Spoj Brno TJ Šumperk;;ZS;;;42;;200;;Vedoucí Testovací;797b9522;slalom
+K1W;64039;Malá Karolína;2018;SKK Vysoké Mýto;;PZ;;;43;;200;;Vedoucí Testovací;10abfeef;slalom
+K1M;1015;Beneš Michal;2016;Bohemians Praha;;PZ;;;44;;200;;Vedoucí Testovací;04042462;slalom
+K1W;12034;Králová Lucie;2017;Dukla Brandýs;;PZ;;;45;;200;;Vedoucí Testovací;3f389997;slalom
+K1M;9004;Doležal Matìj;1978;USK Praha;1;V;136;;46;;200;;Vedoucí Testovací;84f2aa11;slalom
+K1W;A90001;MÜLLER Hanna;2005;Kanu Test e.V.;;U23;;;47;;200;GER;Vedoucí Testovací;ffffffff;slalom
+K1M;999999;Neexistující Karel;2000;Testovací oddíl;3;;;;48;;200;;Vedoucí Testovací;eeeeeeee;slalom

@@ -1,0 +1,289 @@
+{
+ "schema": "csk-dv-pravidla-manifest/1",
+ "generated": "2026-09-29",
+ "current": {
+  "pravidla": "pravidla-2022-pdf",
+  "smernice": "smernice-2026",
+  "smernice_season": 2026,
+  "kayak_cross": "pravidla-kayak-cross-2024"
+ },
+ "documents": [
+  {
+   "id": "smernice-2026",
+   "title": "Směrnice pro závodění v České republice pro rok 2026",
+   "doc_type": "smernice",
+   "season": 2026,
+   "status": "current",
+   "url": "https://www.kanoe.cz/img/CSKDV/2026/Smernice2026/Smernice_pro_zavodeni_pro_rok_2026.docx",
+   "page_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/smernice-pro-zavodeni-csk-dv-2026",
+   "last_modified": "2026-01-21T10:01:51Z",
+   "approved": "ZK 17.12.2025, VV 20.1.2026",
+   "published": "2026-01-21",
+   "sha256": "a1ced2e9ae50267403cd6ebad6424066514c9c442c243a8dd93a750cff57208d",
+   "bytes": 74943,
+   "retrieved": "2026-09-29"
+  },
+  {
+   "id": "smernice-2026-priloha-1",
+   "title": "Příloha č. 1 Směrnic 2026 – postup ČP slalom – oprava (dodatečné povolení výjimky startu v ČP sl.)",
+   "doc_type": "smernice-priloha",
+   "season": 2026,
+   "status": "current",
+   "url": "https://www.kanoe.cz/img/CSKDV/2026/Smernice2026/Priloha_c_1_Smernic_2026_-_postup_cp_slalom-oprava.xls",
+   "page_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/smernice-pro-zavodeni-csk-dv-2026",
+   "last_modified": "2026-01-28T08:28:38Z",
+   "sha256": "28fccd954ed71035bdc58566f0fcc6586159167d5e5c186908b9f9ca9e47f0de",
+   "bytes": 56832,
+   "retrieved": "2026-09-29"
+  },
+  {
+   "id": "smernice-2026-priloha-1-puvodni",
+   "title": "Příloha č. 1 Směrnic 2026 – postup ČP slalom (původní verze)",
+   "doc_type": "smernice-priloha",
+   "season": 2026,
+   "status": "superseded",
+   "url": "https://www.kanoe.cz/img/CSKDV/2026/Smernice2026/Priloha_c_1_Smernic_2026_-_postup_cp_slalom.xls",
+   "page_url": null,
+   "last_modified": "2026-01-21T10:01:50Z",
+   "sha256": "b2fc5e8931853aea888f6e245b050d0d1dd8af326cc51969faab9cbabff2c3ea",
+   "bytes": 56832,
+   "retrieved": "2026-09-29"
+  },
+  {
+   "id": "smernice-2026-priloha-2",
+   "title": "Příloha č. 2 Směrnic 2026 – klíč na rozdělování dotací",
+   "doc_type": "smernice-priloha",
+   "season": 2026,
+   "status": "current",
+   "url": "https://www.kanoe.cz/img/CSKDV/2026/Smernice2026/Priloha_c.2_Smernic_2026.docx",
+   "page_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/smernice-pro-zavodeni-csk-dv-2026",
+   "last_modified": "2026-01-21T10:01:50Z",
+   "sha256": "c845afacf293203709f8b0645eb5b81abec1a15b7a2ed8dde1f00a59df2f885d",
+   "bytes": 22854,
+   "retrieved": "2026-09-29"
+  },
+  {
+   "id": "smernice-2026-priloha-3",
+   "title": "Příloha č. 3 Směrnic 2026 – oficiální zkratky oddílů (max. 8 znaků)",
+   "doc_type": "smernice-priloha",
+   "season": 2026,
+   "status": "current",
+   "url": "https://www.kanoe.cz/img/CSKDV/2026/Smernice2026/Priloha_c._3_Smernic_2026.xls",
+   "page_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/smernice-pro-zavodeni-csk-dv-2026",
+   "last_modified": "2026-01-21T10:01:50Z",
+   "sha256": "8cdb0e7e4786fbb7c2d08af34673c3169b72ac941e488401ff7d1dd8197ce9db",
+   "bytes": 39424,
+   "retrieved": "2026-09-29"
+  },
+  {
+   "id": "smernice-2026-priloha-4",
+   "title": "Příloha č. 4 Směrnic 2026 – podávání dotazu + formulář Dotaz ČP 2026",
+   "doc_type": "smernice-priloha",
+   "season": 2026,
+   "status": "current",
+   "url": "https://www.kanoe.cz/img/CSKDV/2026/Smernice2026/Priloha_c_4_Smernic_2026.docx",
+   "page_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/smernice-pro-zavodeni-csk-dv-2026",
+   "last_modified": "2026-01-21T10:01:50Z",
+   "sha256": "67fb6b08dd8effef1347d4cc8477204affbbbc70976eba60f2c4f122e0a6baa6",
+   "bytes": 25200,
+   "retrieved": "2026-09-29"
+  },
+  {
+   "id": "smernice-2026-priloha-5",
+   "title": "Příloha č. 5 Směrnic 2026 – doplněk Registračního řádu (registrační poplatek 200 Kč)",
+   "doc_type": "smernice-priloha",
+   "season": 2026,
+   "status": "current",
+   "url": "https://www.kanoe.cz/img/CSKDV/2026/Smernice2026/Priloha_c.5_Smernic_2026.docx",
+   "page_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/smernice-pro-zavodeni-csk-dv-2026",
+   "last_modified": "2026-01-21T10:01:50Z",
+   "sha256": "4113ecb332f7a5d3b8807f5940c7d6dbcde7d2fe1bfbd496aa04ba3a3f0888d5",
+   "bytes": 16901,
+   "retrieved": "2026-09-29"
+  },
+  {
+   "id": "pravidla-2022-docx",
+   "title": "Pravidla sekce kanoistiky na divokých vodách ČSK DV 2022 (docx)",
+   "doc_type": "pravidla",
+   "season": "2022+",
+   "status": "current",
+   "url": "https://www.kanoe.cz/img/CSKDV/2022/Pravidla_2022_CSK_DV.docx",
+   "page_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/pravidla-sekce-csk-dv",
+   "last_modified": "2022-03-09T01:32:22Z",
+   "approved": "VV 8.3.2022, platnost od 8.3.2022",
+   "sha256": "fa3552e57d81cc30ed0443e92c1fffe66b346f8ed42a72d975fee92e2875d197",
+   "bytes": 246200,
+   "retrieved": "2026-09-29"
+  },
+  {
+   "id": "pravidla-2022-pdf",
+   "title": "Pravidla sekce kanoistiky na divokých vodách ČSK DV 2022 (pdf, 81 stran)",
+   "doc_type": "pravidla",
+   "season": "2022+",
+   "status": "current",
+   "url": "https://www.kanoe.cz/img/CSKDV/2022/Pravidla_2022_CSK_DV.pdf",
+   "page_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/pravidla-sekce-csk-dv",
+   "last_modified": "2022-03-09T01:32:23Z",
+   "approved": "VV 8.3.2022, platnost od 8.3.2022",
+   "sha256": "c158b407185c3790f9c77859ccdf3550d1c1610e8ce2ef3895a56ee723ad3f1e",
+   "bytes": 778923,
+   "retrieved": "2026-09-29"
+  },
+  {
+   "id": "pravidla-kayak-cross-2024",
+   "title": "Pravidla Kayak Cross 2024 (Část 4 Pravidel, zjednodušená dle ICF)",
+   "doc_type": "pravidla-kc",
+   "season": "2024+",
+   "status": "current",
+   "url": "https://www.kanoe.cz/img/CSKDV/2024/rozhodci/Kayak_Cross_2024.pdf",
+   "page_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/pravidla-kayak-cross",
+   "last_modified": "2024-04-14T11:18:19Z",
+   "published": "2024-04-14",
+   "sha256": "7df397f62380256c8dafcf1bab2e2b395d54d51e34448341f06763a4d518587a",
+   "bytes": 207833,
+   "retrieved": "2026-09-29"
+  },
+  {
+   "id": "smernice-rozhodci-2022",
+   "title": "Směrnice pro činnost rozhodčích 2022",
+   "doc_type": "smernice-rozhodci",
+   "season": "2022+",
+   "status": "current",
+   "url": "https://www.kanoe.cz/img/CSKDV/2022/Smernice2022/Smernice_pro_cinnost_rozhodcich_2022.pdf",
+   "page_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/pravidla-sekce-csk-dv",
+   "last_modified": "2022-03-09T01:37:28Z",
+   "sha256": "c74b5a795b4808fc7425bf51182e751f55185becd91fa6139b213de237885b0a",
+   "bytes": 221362,
+   "retrieved": "2026-09-29"
+  }
+ ],
+ "source_pages": [
+  {
+   "title": "Pravidla – seznam článků (Směrnice po letech + Pravidla)",
+   "url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla",
+   "note": "nejnovější článek nahoře; stránkování ?start=6, ?start=12 …; RSS ?format=feed&type=rss"
+  },
+  {
+   "title": "Směrnice pro závodění ČSK DV 2026 – aktualizovaná příloha č.1",
+   "url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/smernice-pro-zavodeni-csk-dv-2026",
+   "note": "článek z 21.1.2026, titulek doplněn o „aktualizovaná příloha č.1“ (oprava P1 28.1.2026)"
+  },
+  {
+   "title": "Pravidla sekce ČSK DV",
+   "url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/pravidla-sekce-csk-dv",
+   "note": "článek z 8.3.2022"
+  },
+  {
+   "title": "Pravidla Kayak Cross",
+   "url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/pravidla-kayak-cross",
+   "note": "článek z 14.4.2024"
+  },
+  {
+   "title": "Slalom – Směrnice pro závodění (zrcadlo aktuálního roku)",
+   "url": "https://www.kanoe.cz/slalom/smernice-pro-zavodeni?lang=cz"
+  },
+  {
+   "title": "Sjezd – Směrnice pro závodění (zrcadlo aktuálního roku)",
+   "url": "https://www.kanoe.cz/sjezd/smernice-pro-zavodeni"
+  },
+  {
+   "title": "Slalom – Pravidla (zrcadlo)",
+   "url": "https://www.kanoe.cz/slalom/pravidla"
+  },
+  {
+   "title": "Sjezd – Pravidla (zrcadlo)",
+   "url": "https://www.kanoe.cz/sjezd/pravidla"
+  },
+  {
+   "title": "Pravidla ČSKDV – dodatek 2019 k pravidlům 2017 (překonáno Pravidly 2022)",
+   "url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/pravidla-cskdv"
+  },
+  {
+   "title": "Směrnice pro závodění ČSK DV 2025 (předchozí sezóna)",
+   "url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/smernice-pro-zavodeni-csk-dv-2025"
+  },
+  {
+   "title": "Oficiální výsledky slalom/sjezd",
+   "url": "https://www.kanoe.cz/zavody/slalom-sjezd"
+  },
+  {
+   "title": "Registr / nahrání výsledků",
+   "url": "https://csk.kanoe.cz"
+  }
+ ],
+ "detection": {
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128.0 Safari/537.36",
+  "fetch_note": "kanoe.cz vrací 403 pro WebFetch / bez UA; používat curl -sL -A \"<user_agent>\".",
+  "listing_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla",
+  "mirror_urls": [
+   "https://www.kanoe.cz/slalom/smernice-pro-zavodeni",
+   "https://www.kanoe.cz/sjezd/smernice-pro-zavodeni"
+  ],
+  "search_url": "https://www.kanoe.cz/component/search/?searchword=sm%C4%9Brnice&searchphrase=all&ordering=newest&limit=30",
+  "smernice_article_url_template": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/smernice-pro-zavodeni-csk-dv-{YYYY}",
+  "smernice_article_regex": "href=\"(/cskdv/rozhodci/pravidla/smernice-pro-zavodeni-csk-dv-(\\d{4})(?:-[a-z0-9-]+)?)\"",
+  "smernice_exclude_regex": "navrh|pripominky",
+  "smernice_file_url_template": "https://www.kanoe.cz/img/CSKDV/{YYYY}/Smernice{YYYY}/Smernice_pro_zavodeni_pro_rok_{YYYY}.docx",
+  "smernice_file_regex": "href=\"(/img/CSKDV/(\\d{4})/Smernice\\2/Smernice_pro_zavodeni_pro_rok_\\2\\.docx?)\"",
+  "priloha_file_regex": "href=\"(/img/CSKDV/(\\d{4})/Smernice\\2/Priloha_c[._ ]*(\\d)[._ ]*Smernic_\\2[^\"]*\\.(?:docx?|xlsx?|pdf))\"",
+  "priloha_naming_note": "Názvy příloh nejsou konzistentní (Priloha_c_1_…, Priloha_c.2_…, Priloha_c._3_…); opravené verze mají příponu -oprava a původní soubor zůstává na serveru. Vždy brát odkazy z aktuálního článku, ne konstruovat.",
+  "pravidla_article_url": "https://www.kanoe.cz/cskdv/rozhodci/pravidla/pravidla-sekce-csk-dv",
+  "pravidla_file_regex": "href=\"(/img/CSKDV/(\\d{4})/Pravidla_\\2_CSK_DV\\.(?:pdf|docx))\"",
+  "kayak_cross_file_regex": "href=\"(/img/CSKDV/(\\d{4})/rozhodci/Kayak_Cross_\\2\\.pdf)\"",
+  "not_found_behaviour": "Neexistující slug vrací HTTP 200 po redirectu na /index.php?option=com_content&view=article&id=8334 s textem \"Chyba 404 Stránka nenalezena\" – testovat obsah (regex \"Chyba 404\"), ne HTTP status.",
+  "change_signals": [
+   "nový rok ve slugu / v cestě /img/CSKDV/{YYYY}/Smernice{YYYY}/",
+   "slova \"aktualizovan\", \"oprava\", \"dodatek\" v titulku článku nebo v názvu souboru",
+   "změna Last-Modified / Content-Length / sha256 u známých URL (HEAD požadavek)",
+   "nový článek nahoře na listing_url"
+  ],
+  "expected_publication_window": "prosinec–únor před sezónou (historicky 6.12.–15.2.); schvaluje ZK a VV (2026: ZK 17.12.2025, VV 20.1.2026)",
+  "checked_on": "2026-09-29",
+  "history": [
+   {
+    "season": 2026,
+    "published": "2026-01-21",
+    "slug": "smernice-pro-zavodeni-csk-dv-2026",
+    "title_suffix": "- aktualizovaná příloha č.1"
+   },
+   {
+    "season": 2025,
+    "published": "2025-02-15",
+    "slug": "smernice-pro-zavodeni-csk-dv-2025",
+    "title_suffix": "- aktualizováno!"
+   },
+   {
+    "season": 2024,
+    "published": "2024-02-15",
+    "slug": "smernice-pro-zavodeni-csk-dv-2024"
+   },
+   {
+    "season": 2023,
+    "published": "2023-02-15",
+    "slug": "smernice-pro-zavodeni-csk-dv-2023"
+   },
+   {
+    "season": 2022,
+    "published": "2021-12-06",
+    "slug": "smernice-pro-zavodeni-csk-dv-2022"
+   },
+   {
+    "season": 2021,
+    "published": "2021-03-31",
+    "slug": "smernice-pro-zavodeni-csk-dv-2021"
+   },
+   {
+    "season": 2020,
+    "published": "2020-01-20",
+    "slug": "smernice-pro-zavodeni-csk-dv-2020-konecna-verze",
+    "note": "návrh zvlášť: smernice-csk-dv-2020-navrh (2019-12-20)"
+   },
+   {
+    "season": 2019,
+    "published": "2019-01-28",
+    "slug": "smernice-pro-zavodeni-csk-dv-2019"
+   }
+  ]
+ },
+ "digest": "references/pravidla-2026.md"
+}

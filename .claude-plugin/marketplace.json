@@ -1,0 +1,12 @@
+{
+  "name": "czechcanoe",
+  "owner": { "name": "CzechCanoe", "url": "https://github.com/CzechCanoe" },
+  "description": "Skilly Českého svazu kanoistů pro pořadatele závodů.",
+  "plugins": [
+    {
+      "name": "csk-eskymo",
+      "source": "./",
+      "description": "Startovky a výsledky závodů ČSK v Eskymu (slalom, sjezd, sprint, hlídky, Canoe123)."
+    }
+  ]
+}
