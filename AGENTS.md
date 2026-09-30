@@ -70,10 +70,10 @@ Nová funkce = nový test nad fixtures. Když chybí data, rozšiř `tools/make_
 ## Upstream canoe123-2-eskymo
 
 Vendor se needituje. Oprava → PR do `CzechCanoe/canoe123-2-eskymo` (s testem tam) → po sloučení
-`python tools/sync_vendor.py --ref <commit> --popis "…"` → testy. Známé otevřené body upstream:
-A-část ze slepeného ICFId se nedoplní do `cizi`; disambiguace ročníkem při neshodě vezme tiše
-prvního kandidáta; při překročení kapacity se výsledky uříznou bez chyby (obal `canoe123.py prehled`
-to hlídá předem); `cross.py` nechává sloupec „celk.“ prázdný.
+`python tools/sync_vendor.py --ref <commit> --popis "…"` → testy. Vyřešeno upstream (PR #1, #2):
+české kódy žen K1Z/C1Z/C2Z, hlášení neznámých tříd, překročení kapacity jako chyba, varování na
+nejednoznačná jména. Známé otevřené body: A-část ze slepeného ICFId se nedoplní do `cizi`;
+`cross.py` nechává sloupec „celk.“ prázdný.
 
 ## Konvence
 

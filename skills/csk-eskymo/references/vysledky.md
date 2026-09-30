@@ -33,8 +33,9 @@ python scripts/verify_workbook.py zavod_vysledky.ods --vysledky
 - Kdo je ve výstupu: kdo má aspoň jeden `Results` záznam pro den (DNS+DNS zařadit); jen v
   `Participants` = odhlášen → vynechán. Skrytý DNS (bez Status i Time) → DNS + 999, chybějící Pen → 0.
 - **Neznámá třída** (není v mapě skriptu) → `prehled` ji hlasitě vypíše; nikdy ji tiše nevynechávej.
-  Ženy jako K1W/C1W **i** K1Z/C1Z (od PR #1). Kapacita listu < počet závodníků → převod by uřízl
-  výsledky → nový sešit s vyšším #řádek.
+  Ženy jako K1W/C1W **i** K1Z/C1Z. Kapacita listu < počet závodníků → převod skončí chybou (nic
+  neuloží) → nový sešit s vyšším #řádek. Víc lidí stejného jména, které ročník nerozliší → převod
+  použije prvního a vypíše „! Nejednoznačná jména … OVĚŘ“ — to předej pořadateli.
 - Známé zrady XML (skript řeší, ty jen kontroluj výpis): deble ve starém slepeném formátu
   (`ICFId` = RGC1‖RGC2, dělí se proti registru), `Id` ≠ `ICFId` (věří se ICFId), cizinci bez ICFId
   (vygeneruje `A` + 5 číslic navazující na `cizi`) nebo s vlastním A-kódem (zachová a doplní do `cizi`),

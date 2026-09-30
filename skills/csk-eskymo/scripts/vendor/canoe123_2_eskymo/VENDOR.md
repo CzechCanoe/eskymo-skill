@@ -4,8 +4,8 @@ Zdroj: <https://github.com/CzechCanoe/canoe123-2-eskymo> (MIT, viz `LICENSE`).
 
 | | |
 |---|---|
-| commit | `c4f04f3e706ff9ef2a19cae6c8f36314a8082735` (2026-09-29) |
-| stav | hlava [PR #1](https://github.com/CzechCanoe/canoe123-2-eskymo/pull/1) — české kódy žen K1Z/C1Z/C2Z, hlasité varování na neznámé třídy |
+| commit | `704735a9d2fbd0ed7215c53a617e75594d5c4c8c` (2026-09-30) |
+| stav | main po sloučení PR #1 (české kódy žen) a PR #2 (kapacita, nejednoznačná jména) |
 | soubory | `canoe2eskymo.py` (slalom), `cross.py` (kajak kros), `LICENSE` |
 
 Soubory se **needitují ručně**. Oprava patří do upstream repa (PR), pak se sem

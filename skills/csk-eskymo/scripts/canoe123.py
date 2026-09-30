@@ -135,7 +135,7 @@ def prehled(xml: str, sablona: str | None = None) -> tuple[str, int]:
             cap = sum(1 for r in vals[2:] if r and isinstance(r[0], float))
             if mx > cap:
                 problemy += 1
-                L.append(f'  ! {c}: {mx} závodníků, list má jen {cap} řádků (#řádek) — převod by uřízl výsledky; '
+                L.append(f'  ! {c}: {mx} závodníků, list má jen {cap} řádků (#řádek) — převod skončí chybou; '
                          'v Eskymu založ sešit s vyšším #řádek')
             else:
                 L.append(f'  {c}: max {mx} závodníků / kapacita {cap}')

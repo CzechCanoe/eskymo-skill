@@ -290,6 +290,12 @@ def load_registry(doc) -> dict:
     return out
 
 
+# Nejednoznačná přiřazení podle jména (víc lidí stejného jména, ročník nerozhodl).
+# Skript vezme prvního kandidáta, ale main() to musí nahlásit — jinak by se tiše
+# mohl zapsat jiný člověk (otec místo syna apod.).
+LOOKUP_WARNINGS: list[str] = []
+
+
 def lookup_person(family: str, given: str, year: str, registry: dict) -> str | None:
     """Vrátí RGC podle jména (a roku narození pro disambiguaci). None pokud nenalezeno."""
     fam = (family or "").strip().upper()
@@ -303,11 +309,15 @@ def lookup_person(family: str, given: str, year: str, registry: dict) -> str | N
                 (_strip_diacritics(fam), _strip_diacritics(giv)), []
             )
         if candidates:
-            if year and len(candidates) > 1:
-                for rgc, ry in candidates:
-                    if ry == year:
-                        return rgc
-                return candidates[0][0]
+            if len(candidates) > 1:
+                if year:
+                    for rgc, ry in candidates:
+                        if ry == year:
+                            return rgc
+                LOOKUP_WARNINGS.append(
+                    f"{fam} {giv} ({year or 'ročník neznámý'}): v registru {len(candidates)} osob "
+                    f"({', '.join(f'{r}/{y}' for r, y in candidates)}), ročník nerozhodl — "
+                    f"použito {candidates[0][0]}, OVĚŘ")
             return candidates[0][0]
         rgc = registry["foreign_by_fullname"].get(f"{fam} {giv}".strip())
         if rgc:
@@ -404,6 +414,19 @@ def split_double_icf(icf: str, p: dict, registry: dict) -> tuple[str, str] | Non
     if candidates:
         return candidates[0]
     return None
+
+
+def sheet_capacity(doc, sheet_name: str) -> int:
+    """Počet datových řádků listu (řádky od 3. s číselným id ve sloupci A) = param #řádek."""
+    sheet = get_sheet(doc, sheet_name)
+    if sheet is None:
+        return 0
+    n = 0
+    for row in list(sheet.getElementsByType(TableRow))[2:]:
+        cells = row.getElementsByType(TableCell)
+        if cells and cells[0].getAttribute("valuetype") == "float":
+            n += int(row.getAttribute("numberrowsrepeated") or 1)
+    return n
 
 
 def fill_startlist(doc, sheet_name: str, participants: list[dict],
@@ -773,11 +796,21 @@ def main():
             or (f"{cls}_BR2_{args.day}", p["id"]) in results
         ]
         skipped = len(all_parts) - len(parts)
+        cap = sheet_capacity(doc, sl_sheet)
+        if len(parts) > cap:
+            # Dřív se startovka zkrátila s varováním a výsledky se uřízly potichu.
+            sys.exit(f"CHYBA: {cls} má {len(parts)} závodníků, ale {sl_sheet} jen {cap} řádků "
+                     f"(param #řádek). Založ v Eskymu sešit s vyšším #řádek — nic neukládám.")
         n_sl, warnings = fill_startlist(doc, sl_sheet, parts, cls, registry, new_cizi_entries)
         n_res = fill_results(doc, results_sheet, parts, results, cls, args.day)
         skipped_note = f", přeskočeno {skipped} bez výsledků" if skipped else ""
         print(f"  {cls} → {sl_sheet}: {n_sl} startovka, {results_sheet}: {n_res} výsledky{skipped_note}")
         for w in warnings:
+            print(f"    ! {w}")
+
+    if LOOKUP_WARNINGS:
+        print("  ! Nejednoznačná jména (zkontroluj RGC ve startovce):")
+        for w in dict.fromkeys(LOOKUP_WARNINGS):
             print(f"    ! {w}")
 
     if new_cizi_entries:
