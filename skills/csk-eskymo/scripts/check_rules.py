@@ -50,6 +50,16 @@ def head(url) -> dict:
             return {'status': r.status, 'bytes': int(r.headers.get('Content-Length') or 0) or None,
                     'last_modified': r.headers.get('Last-Modified')}
     except urllib.error.HTTPError as e:
+        if e.code in (403, 405, 501):   # server HEAD nepodporuje → GET prvního bajtu
+            req = _req(url)
+            req.add_header('Range', 'bytes=0-0')
+            try:
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    total = (r.headers.get('Content-Range') or '').split('/')[-1]
+                    return {'status': 200, 'bytes': int(total) if total.isdigit() else None,
+                            'last_modified': r.headers.get('Last-Modified')}
+            except urllib.error.HTTPError as e2:
+                return {'status': e2.code}
         return {'status': e.code}
 
 

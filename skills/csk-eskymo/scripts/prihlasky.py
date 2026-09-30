@@ -217,6 +217,8 @@ def over(lode: list[dict], wb: Workbook, zavod: str | None = None, sezona: int |
         'sezona': sezona, 'disciplina': disciplina, 'lodi': len(out),
         'po_kategoriich': dict(Counter(l['kat'] for l in out)),
         'vyrazeno_jiny_zavod': len(vyrazene),
+        'vyrazene': [{'zdroj': l.get('zdroj'), 'kat': l.get('kat') or l.get('kat_vstup'), 'rgc': l.get('rgc'),
+                      'jmena': l.get('jmena', []), 'zavody': l.get('zavody')} for l in vyrazene],
         'problemy': problemy, 'varovani': varovani, 'info': info,
     }
     return {'lode': out, 'souhrn': souhrn}
@@ -227,7 +229,10 @@ def report(s: dict) -> str:
     for k, n in sorted(s['po_kategoriich'].items(), key=lambda x: str(x[0])):
         L.append(f'  {k or "?":<4} {KATEGORIE_NAZEV.get(k, "?"):<14} {n}')
     if s['vyrazeno_jiny_zavod']:
-        L.append(f"Vyřazeno (přihlášeni na jiný závod akce): {s['vyrazeno_jiny_zavod']}")
+        L.append(f"Vyřazeno (přihlášeni jen na jiný závod akce): {s['vyrazeno_jiny_zavod']}")
+        for x in s.get('vyrazene', []):
+            L.append(f"  - {x['kat']} {' '.join(x['rgc'] or [])} {' '.join(x['jmena'])} "
+                     f"(závody {','.join(x['zavody'] or [])}; {x['zdroj']})")
     for title, key in (('PROBLÉMY — vyřeší pořadatel', 'problemy'), ('VAROVÁNÍ — ověřit', 'varovani'),
                        ('INFO', 'info')):
         if s[key]:

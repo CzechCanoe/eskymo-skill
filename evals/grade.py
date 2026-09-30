@@ -65,6 +65,21 @@ def sl_rows(wb, kat, hlidky=False):
     return out
 
 
+def ids_beze_zmeny(ods, sablona):
+    """Sloupec id (A) ve startovkách i výsledkových listech musí zůstat jako v šabloně — je to vazba
+    startovka ↔ výsledky, kterou Eskymo nečeká, že někdo přepíše."""
+    a, b = Workbook(ods), Workbook(sablona)
+    zmeny = []
+    for n in b.sheet_names():
+        if n in ('param', 'reg', 'cizi', 'hlidky') or not a.has(n):
+            continue
+        va = [r[0] if r else None for r in a.sheet(n).values(max_cols=1)[2:]]
+        vb = [r[0] if r else None for r in b.sheet(n).values(max_cols=1)[2:]]
+        if va != vb:
+            zmeny.append(n)
+    return zmeny
+
+
 def E(text, passed, evidence):
     return {'text': text, 'passed': bool(passed), 'evidence': str(evidence)[:400]}
 
@@ -124,6 +139,8 @@ def grade_vpz(outputs, inputs):
     ex.append(E('Po přepočtu se dotáhla všechna jména a oddíly (žádné #N/A, prázdné jméno)',
                 'OK — žádné problémy' in v or ('prázdné jméno' not in v and 'chyba vzorce' not in v and 'PROBLÉMY' not in v),
                 v[-300:]))
+    z = ids_beze_zmeny(ods, os.path.join(FIX, 'slalom.ods'))
+    ex.append(E('Sloupec id ve startovkách a výsledkových listech zůstal jako v šabloně', not z, z))
     ex.append(E('Odpověď pořadateli hlásí neznámé RGC 999999', '999999' in resp, resp[:200]))
     ex.append(E('Odpověď zmiňuje loď přihlášenou jen na jiný závod (136 / neděle)',
                 re.search(r'136|neděl', resp, re.I) is not None, ''))
@@ -174,6 +191,8 @@ def grade_hlidky(outputs, inputs):
     fs = ''.join(v for row in wb.sheet('hlidky').values(max_rows=15, max_cols=48, formulas=True) for v in row
                  if isinstance(v, str))
     ex.append(E('Překlep šablony uuper( je ve výstupu opravený', 'uuper(' not in fs, 'uuper(' in fs))
+    z = ids_beze_zmeny(ods, os.path.join(FIX, 'hlidky_sprint.ods'))
+    ex.append(E('Sloupec id ve startovkách a výsledkových listech zůstal jako v šabloně', not z, z))
     v = verify(ods)
     ex.append(E('Po přepočtu bez chyb vzorců a s dotaženými oddíly', 'PROBLÉMY' not in v, v[-300:]))
     ex.append(E('Odpověď zmiňuje opravu překlepu ve vzorci šablony', re.search(r'uuper|UPPER|překlep', resp, re.I) is not None, ''))
@@ -260,9 +279,7 @@ def main(it):
             passed = sum(1 for e in ex if e['passed'])
             gr = {'expectations': ex, 'summary': {'passed': passed, 'failed': len(ex) - passed, 'total': len(ex),
                                                   'pass_rate': round(passed / len(ex), 3) if ex else 0}}
-            tf = os.path.join(run, 'timing.json')
-            if os.path.exists(tf):
-                gr['timing'] = json.load(open(tf, encoding='utf-8'))
+            # čas a tokeny si agregátor skill-creatoru čte ze sousedního timing.json
             json.dump(gr, open(os.path.join(run, 'grading.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
             print(f'{os.path.basename(ev)} {os.path.basename(os.path.dirname(run))}: {passed}/{len(ex)}')
 

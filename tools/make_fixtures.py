@@ -179,14 +179,23 @@ def anonymizuj(src: str, dst: str, lide: list[dict], nazev: str, datum: str, cis
              'Ředitel závodu': 'Ředitel Testovací', 'Vrchní rozhodčí': 'Rozhodčí Testovací',
              'Datum závodu': datum, 'Číslo závodu': cislo, 'Adresa registru': 'https://csk.kanoe.cz/exp.php?k=REDACTED',
              'Výsledky zpracoval': '', 'Telefon': '', 'Mail': '', 'Pracovní adresář': ''}
+    stare = {k: pole[k]['hodnota'] for k in ('Název závodu', 'Místo závodu', 'Číslo závodu') if k in pole}
     for k, v in zmeny.items():
         if k in pole:
             p.set_a1(pole[k]['bunka'], v)
     # meta, styles, thumbnail
     wb.parts['meta.xml'] = re.sub(rb'<(meta:initial-creator|dc:creator)>[^<]*</\1>', b'', wb.parts['meta.xml'])
-    wb.parts['styles.xml'] = re.sub(rb'(<text:p[^>]*>)([^<]{3,})(</text:p>)',
-                                    lambda m: m.group(1) + 'Testovací oddíl'.encode() + m.group(3),
-                                    wb.parts['styles.xml'])
+    st = wb.parts['styles.xml'].decode('utf-8')
+    # záhlaví/zápatí tisku nese název, místo a číslo závodu z param a pořadatele šablony
+    for k, nove in (('Název závodu', nazev), ('Místo závodu', 'Testov, Horní jez')):
+        if stare.get(k):
+            st = st.replace(f'>{stare[k]}<', f'>{nove}<')
+    if stare.get('Číslo závodu') is not None:
+        st = re.sub(r'závod č\. \d+', f'závod č. {cislo}', st)
+    st = re.sub(r'>\d{2}\.\d{2}\.\d{4}<', '>01.01.2026<', st)
+    st = re.sub(r'>\d{2}:\d{2}:\d{2}<', '>00:00:00<', st)
+    st = re.sub(r'(<text:p[^>]*>)(?!ESKYMO|Stránka|Testov|závod č)([^<]{3,})(</text:p>)', r'\1Testovací oddíl\3', st)
+    wb.parts['styles.xml'] = st.encode('utf-8')
     wb.parts.pop('Thumbnails/thumbnail.png', None)
     wb._order = [n for n in wb._order if not n.startswith('Thumbnails/')]
     wb.parts['META-INF/manifest.xml'] = re.sub(rb'<manifest:file-entry[^>]*Thumbnails[^>]*/>', b'',

@@ -191,15 +191,29 @@ class Sheet:
         if not split:
             return None
         # za koncem listu — dopiš prázdné řádky
-        parent = idx[-1][2].getparent() if idx else self.el
+        # nový řádek hned za poslední table-row (v souborech z LibreOffice za řádky následuje
+        # calcext:conditional-formats — přidat na konec listu by porušilo schéma ODF)
+        last = idx[-1][2] if idx else None
         missing = r - self.nrows
+
+        def novy():
+            el = etree.Element(ROW)
+            etree.SubElement(el, CELL)
+            return el
         if missing > 0:
-            pad = etree.SubElement(parent, ROW)
-            etree.SubElement(pad, CELL)
+            pad = novy()
             if missing > 1:
                 pad.set(ROWS_REP, str(missing))
-        new = etree.SubElement(parent, ROW)
-        etree.SubElement(new, CELL)
+            if last is not None:
+                last.addnext(pad)
+            else:
+                self.el.append(pad)
+            last = pad
+        new = novy()
+        if last is not None:
+            last.addnext(new)
+        else:
+            self.el.append(new)
         self._index = None
         return new
 

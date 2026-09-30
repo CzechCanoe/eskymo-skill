@@ -306,6 +306,80 @@ def test_kalendar():
 
 
 @test
+def test_revize_cisla_pevne_po_kategoriich():
+    r = cisla.prirad([('k1m', 3), ('c1m', 2)], 'pevne', pevne={'k1m': [1, 2, 3], 'c1m': [1, 2]})
+    assert r['cisla']['c1m'] == [1, 2] and r['varovani'], r
+
+
+@test
+def test_revize_hlidky_mimo_poradi():
+    hl = json.load(open(os.path.join(FIX, 'hlidky.json'), encoding='utf-8'))
+    hl.append({'kat': 'c2m', 'lode': ['23901 23902'], 'zdroj': 'test-c2'})
+    json.dump(hl, open(t('hl_c2.json'), 'w', encoding='utf-8'))
+    json.dump({'poradi_kategorii': ['c1m', 'k1z', 'k1m']}, open(t('hn2.json'), 'w', encoding='utf-8'))
+    out = run('hlidky.py', 'nasad', t('hl_c2.json'), os.path.join(FIX, 'hlidky_sprint.ods'), '-c', t('hn2.json'),
+              '-o', t('hp2.json'), ok=(1,))
+
+
+@test
+def test_revize_zebricek():
+    if not os.path.exists(t('lode_ok.json')):
+        test_prihlasky()
+    lode = json.load(open(t('lode_ok.json'), encoding='utf-8'))['lode']
+    k1m = [l for l in lode if l['kat'] == 'k1m'][:5]
+    radky = ['kat;rgc;poradi'] + [f"K1M;{l['rgc'][0]};{i + 1}" for i, l in enumerate(k1m)] + ['XYZ;1;1']
+    open(t('zeb.csv'), 'w', encoding='utf-8').write(chr(10).join(radky) + chr(10))
+    json.dump({'poradi_kategorii': ['k1m', 'c1z', 'c2m', 'pzk', 'c1m', 'pzc', 'k1z', 'c2x'],
+               'nasazeni': {'metoda': 'vt-los', 'seed': 1},
+               'kategorie': {'k1m': {'nasazeni': {'metoda': 'zebricek', 'zebricek': t('zeb.csv')}}}},
+              open(t('nz.json'), 'w', encoding='utf-8'))
+    run('startovka.py', 'nasad', t('lode_ok.json'), os.path.join(FIX, 'slalom.ods'), '-c', t('nz.json'),
+        '-o', t('pz.json'))
+    plan = json.load(open(t('pz.json'), encoding='utf-8'))
+    assert any('XYZ' in v for v in plan['varovani']), plan['varovani']
+    k = next(x for x in plan['kategorie'] if x['kat'] == 'k1m')
+    assert [p['rgc'][0] for p in k['lode'][-5:]] == [l['rgc'][0] for l in reversed(k1m)]   # vítěz poslední
+    # kategorie bez jediné lodi v žebříčku → chyba
+    open(t('zeb0.csv'), 'w', encoding='utf-8').write(chr(10).join(['kat;rgc;poradi', 'K1M;999999;1', '']))
+    json.dump({'nasazeni': {'metoda': 'zebricek', 'zebricek': t('zeb0.csv')}}, open(t('nz0.json'), 'w', encoding='utf-8'))
+    run('startovka.py', 'nasad', t('lode_ok.json'), os.path.join(FIX, 'slalom.ods'), '-c', t('nz0.json'),
+        '-o', t('pz0.json'), ok=(1,))
+
+
+@test
+def test_revize_casy_chybejici_jizda():
+    if not os.path.exists(t('startovka.ods')):
+        test_startovka()
+    plan = json.load(open(t('plan.json'), encoding='utf-8'))
+    s1 = next(k for k in plan['kategorie'] if k['kat'] == 'k1m')['lode'][0]['stc']
+    open(t('c3.csv'), 'w', encoding='utf-8').write(chr(10).join(['kat;stc;jizda;cas;pen', f'k1m;{s1};1;90;0', '']))
+    out = run('casy.py', 'zapis', t('c3.csv'), t('startovka.ods'), t('v3.ods'), ok=(1,))
+    assert 'Bez času i stavu' in out
+
+
+@test
+def test_revize_dohlaska():
+    if not os.path.exists(t('startovka.ods')):
+        test_startovka()
+    shutil.copy(t('plan.json'), t('plan_d.json'))
+    plan = json.load(open(t('plan_d.json'), encoding='utf-8'))
+    pouzite = {p['rgc'][0] for k in plan['kategorie'] for p in k['lode']}
+    wb = Workbook(os.path.join(FIX, 'slalom.ods'))
+    novy = next(str(int(r[0])) for r in wb.sheet('reg').values(max_cols=5)[1:]
+                if r and isinstance(r[0], float) and r[4] == 't' and str(int(r[0])) not in pouzite
+                and isinstance(r[3], str) and r[3].isdigit() and 1970 < int(r[3]) < 2008)
+    run('startovka.py', 'dohlas', t('plan_d.json'), os.path.join(FIX, 'slalom.ods'), '--kat', 'K1M',
+        '--rgc', novy, '--stc', '20', '--pozice', 'zacatek')
+    json.dump({'cisla': {'rezim': 'pevne'}}, open(t('pevne.json'), 'w', encoding='utf-8'))
+    run('startovka.py', 'zapis', t('plan_d.json'), t('startovka.ods'), t('startovka_d.ods'), '--prepsat',
+        '-c', t('pevne.json'))
+    sl = Workbook(t('startovka_d.ods')).sheet('k1m_sl')
+    assert sl.get(2, 1) == 20.0 and norm_rgc(sl.get(2, 2)) == novy
+    stare = [p['stc'] for p in next(k for k in plan['kategorie'] if k['kat'] == 'k1m')['lode']]
+    assert [sl.get(3 + i, 1) for i in range(len(stare))] == [float(x) for x in stare]   # ostatní čísla beze změny
+
+
+@test
 def test_check_rules_online():
     if '--online' not in sys.argv:
         raise Skip('bez --online')

@@ -78,7 +78,10 @@ class Registr:
         for sheet, cizinec in (('reg', False), ('cizi', True)):
             if not wb.has(sheet):
                 continue
-            for row in wb.sheet(sheet).values(max_cols=19)[1:]:
+            vals = wb.sheet(sheet).values(max_cols=19)
+            hlav = [str(x or '').strip().lower() for x in (vals[0] if vals else [])]
+            ma_prohlidky = len(hlav) > 16 and 'prohl' in hlav[16]
+            for row in vals[1:]:
                 if not row or row[0] in (None, ''):
                     continue
                 row = list(row) + [None] * (19 - len(row))
@@ -94,7 +97,7 @@ class Registr:
                     pohlavi=_s(row[4]), vk=_s(row[5]),
                     vt={k: norm_vt(row[_SL[k]]) for k in ('KS', 'C1S', 'C2S', 'KW', 'C1W', 'C2W')},
                     oddil=_s(row[12]), odd_nazev=_s(row[13]),
-                    prohlidka=(None if cizinec else _s(row[16]).upper() == 'A'),
+                    prohlidka=(None if cizinec or not ma_prohlidky else _s(row[16]).upper() == 'A'),
                     oblast=_s(row[18]).upper(), cizinec=cizinec or rgc.startswith('A'),
                 ))
         return cls(osoby)

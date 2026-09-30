@@ -42,7 +42,7 @@ from eskymo_ods import Workbook, norm_rgc, rgc_cell_value
 from inspect_workbook import read_param
 from registr import Registr
 
-PISMENA = 'ABCDEFGHIJ'
+PISMENA = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
 # ---------- 1) loňské výsledky ----------
@@ -124,6 +124,13 @@ def nasad(hlidky: list[dict], wb: Workbook, loni: dict | None, nast: dict) -> di
     n = nast.get('nasazeni', {})
     por_kat = [kategorie_eskymo(k) or k for k in nast.get('poradi_kategorii') or
                [k['kod'] for k in read_param(wb)['kategorie']]]
+    nezname = [h for h in hlidky if not kategorie_eskymo(h.get('kat', ''))]
+    if nezname:
+        raise SystemExit(f"Hlídky s neznámou kategorií: {[(h.get('kat'), h.get('zdroj')) for h in nezname]}")
+    chybi = sorted({kategorie_eskymo(h['kat']) for h in hlidky} - set(por_kat))
+    if chybi:
+        raise SystemExit(f'Kategorie {chybi} mají přihlášené hlídky, ale nejsou v poradi_kategorii — doplň je '
+                         '(jinak by hlídky tiše vypadly ze startovky).')
     plan = {'zavod': {k: pole.get(k) for k in ('Název závodu', 'Datum závodu', 'Číslo závodu', 'Disciplína')},
             'nastaveni': nast, 'kategorie': [], 'nesparovana_loni': {}, 'k_rozhodnuti': []}
 
@@ -172,6 +179,9 @@ def nasad(hlidky: list[dict], wb: Workbook, loni: dict | None, nast: dict) -> di
                 if t['poradi'] not in obs and t['oddil'] == e['oddil']:
                     e.update(loni=t['poradi'], loni_umisteni=t['umisteni'], vazba='oddíl (zbylé umístění)')
                     obs.add(t['poradi'])
+                    plan['k_rozhodnuti'].append(
+                        f"{kat.upper()}: hlídka {e['oddil']} ({'; '.join(e.get('jmena') or e['lode'])}) zdědila "
+                        f"loňské {t['umisteni']} místo jen podle oddílu (žádný společný závodník) — potvrdit.")
                     break
         for e in ents:
             e.setdefault('loni', None)

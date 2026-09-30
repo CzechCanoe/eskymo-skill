@@ -45,7 +45,26 @@ python scripts/verify_workbook.py zavod_startovka.ods --plan plan.json
 - Přečíslování (chybějící dres, jiný rozsah) = jen `zapis` s jiným `cisla` — nasazení zůstane.
 - `zapis` odmítne list, kde už jsou data (`--prepsat` smaže stč/rgc/poznámku celého listu).
 - `metoda: eskymo-los` zapíše jen rgc (seřazené podle VT) — čísla pak vylosuje člověk tlačítkem
-  v Eskymu (od 1 v každé kategorii, nejslabší první; `eskymo-gui.md` §4).
+  v Eskymu (od 1 v každé kategorii, nejslabší první; `eskymo-gui.md` §4). Jen pro všechny kategorie
+  najednou — kombinace s jinými metodami by dala kolidující čísla (skript ji odmítne).
+- Lodě s nevyřešenými PROBLÉMY z `prihlasky.py` se nenasazují; jsou v přehledu v sekci „Nezapsáno“
+  (`--i-s-problemy` je nasadí i tak — jen když to pořadatel chce).
+- `zebricek`: řádky s neznámou kategorií a počty zařazených/nezařazených jsou v přehledu („Poznámky
+  k nasazení“); když není v žebříčku ani jedna přihlášená loď kategorie, skript skončí chybou.
+
+**Dohláška po zápisu** (čísla ostatních se nemění):
+
+```bash
+python scripts/startovka.py dohlas plan.json zavod.ods --kat k1m --rgc 12345 --stc 20 --pozice zacatek
+python scripts/startovka.py zapis plan.json zavod.ods zavod_startovka_v2.ods --prepsat -c pevne.json
+#   pevne.json: {"cisla": {"rezim": "pevne"}}
+python scripts/verify_workbook.py zavod_startovka_v2.ods --plan plan.json
+```
+
+Číslo dohlášky vezmi z rezervy nebo za posledním číslem kategorie. `--pozice`: `zacatek`
+(nezařazení podle Směrnic), `konec`, nebo pořadí (1 = první startující). Poznámky ve sloupci K
+zůstávají na svých řádcích — po přeřazení je zkontroluj. Odhláška = smazat loď z `plan.json` a totéž
+`zapis --prepsat` s `pevne` (nebo v Eskymu smazat rgc a stč na řádku).
 
 ## 3. nastaveni.json a typické konfigurace
 
@@ -60,7 +79,7 @@ python scripts/verify_workbook.py zavod_startovka.ods --plan plan.json
 | Závod | Nastavení |
 |---|---|
 | VPZ, zvyklost „jako Eskymo“ | `vt-los`, `smer: nejslabsi-prvni`, `skupiny: eskymo` (MT a 1 zvlášť), čísla `desitky` |
-| VPZ podle P 2.17.01 | `vt-los`, `smer: nejlepsi-prvni`, `skupiny: pravidla` |
+| VPZ podle P 2.17.01 | `vt-los`, `smer: nejlepsi-prvni`, `skupiny: pravidla` (6 skupin; `pravidla-4` = MT+1, 2+/2, 3+/3, bez — viz Nejasnosti v pravidlech) |
 | ČPŽ / MČR žáků / MČR dorostu | `zebricek` (CSV od počtářky `kat;rgc;poradi`), `smer: nejslabsi-prvni`, `nezarazeni: zacatek-vt-nejlepsi-prvni` |
 | NKZ | S26: MT a 1. VT startují **první**, pak ostatní podle průběžného pořadí NKZ, nezařazení 2. VT na konec. Technicky `zebricek` (CSV, kde MT+1 dostanou nejlepší pořadí), `smer: nejlepsi-prvni`, `nezarazeni: konec`; směr uvnitř průběžného pořadí ověř s pořadatelem/počtářkou |
 | ČPw | `zebricek`, `smer: nejslabsi-prvni`, čísla `sestupne-kat` |
@@ -77,7 +96,7 @@ python scripts/verify_workbook.py zavod_startovka.ods --plan plan.json
 | `prubezne` | vzestupně napříč závodem, `mezera` rezervních čísel mezi kategoriemi | zvyklost pořadatele |
 | `sestupne` | od `start` dolů napříč závodem, rezervy mezi kategoriemi | hlídky MČR 2026 |
 | `sestupne-kat` | v každé kategorii poslední startující = 1 | ČPw, KC individuál |
-| `pevne` | čísla z dat (`stc`) | ČP slalom, dohlášky |
+| `pevne` | čísla z dat (`stc`); unikátní jen v kategorii | ČP slalom (číslo = loňské umístění v kategorii), dohlášky |
 
 Vždy: `vynechat` (dresy, které pořadatel nemá — přeskočí se i v rezervách), `max` (počet dresů).
 Kontroly (unikátnost, vynechaná, rozsah) dělá `cisla.py` sám. Když zadání není přesné („pár čísel

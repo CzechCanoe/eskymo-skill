@@ -19,8 +19,8 @@ Režimy:
       vyrobí soubor pro Eskymo „Natažení časů ze souboru“ (kat;stc;jizda;start;cil, jen řádky
       se startem a cílem). Trestné body a stavy pak člověk zadá v Eskymu (formulář Výsledek).
 
-Invariant: každá jízda zapsaného závodníka má čas, nebo stav. Chybějící jízdy skript vypíše;
-s --dns-chybejici je doplní jako DNS (jen když to pořadatel potvrdil).
+Invariant: každá jízda zapsaného závodníka má čas, nebo stav. Chybějící jízdy skript vypíše
+a skončí kódem 1; s --dns-chybejici je doplní jako DNS (jen když to pořadatel potvrdil).
 """
 from __future__ import annotations
 
@@ -207,7 +207,7 @@ def main(argv=None):
         print(f"Bez času i stavu ({len(res['chybi'])}) — doplň, nebo potvrď DNS a spusť s --dns-chybejici:")
         for c in res['chybi'][:50]:
             print(f'  - {c}')
-    return 1 if res['problemy'] else 0
+    return 1 if res['problemy'] or res['chybi'] else 0
 
 
 if __name__ == '__main__':

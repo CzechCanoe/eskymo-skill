@@ -40,7 +40,7 @@ import sys
 from collections import Counter
 
 import cisla as C
-from domena import (KATEGORIE_NAZEV, VT_SKUPINY_ESKYMO, VT_SKUPINY_PRAVIDLA,
+from domena import (KATEGORIE_NAZEV, VT_SKUPINY_ESKYMO, VT_SKUPINY_PRAVIDLA, VT_SKUPINY_PRAVIDLA4,
                     kategorie_eskymo, vt_rank, vt_skupina)
 from eskymo_ods import Workbook, norm_rgc, rgc_cell_value
 from inspect_workbook import read_param
@@ -64,20 +64,31 @@ def _klic(rgcs) -> str:
     return ' '.join(sorted(norm_rgc(r) for r in rgcs))
 
 
-def nacti_zebricek(path: str) -> dict:
-    """CSV kat;rgc;poradi (hlavička volitelná) → {kat: {klic_lodi: poradi}}."""
+def nacti_zebricek(path: str) -> tuple[dict, list[str]]:
+    """CSV kat;rgc;poradi (hlavička volitelná) → ({kat: {klic_lodi: poradi}}, varování).
+
+    Řádky s neznámou kategorií nebo bez čísla pořadí se nezahazují potichu — jdou do varování.
+    """
     raw = open(path, 'rb').read()
     try:
         text = raw.decode('utf-8-sig')
     except UnicodeDecodeError:
         text = raw.decode('cp1250')
     out: dict = {}
-    for row in csv.reader(io.StringIO(text), delimiter=';'):
+    varovani = []
+    for i, row in enumerate(csv.reader(io.StringIO(text), delimiter=';'), start=1):
+        if not any(c.strip() for c in row):
+            continue
         if len(row) < 3 or not row[2].strip().rstrip('.').isdigit():
+            if i > 1:  # 1. řádek bývá hlavička
+                varovani.append(f'žebříček ř.{i}: bez čísla pořadí, vynechán: {";".join(row)[:60]}')
             continue
         kat = kategorie_eskymo(row[0])
+        if not kat:
+            varovani.append(f'žebříček ř.{i}: neznámá kategorie {row[0]!r} — řádek NEPOUŽIT')
+            continue
         out.setdefault(kat, {})[_klic(row[1].split())] = int(row[2].strip().rstrip('.'))
-    return out
+    return out, varovani
 
 
 def _poradi_kategorii(wb: Workbook, nast: dict, lode: list) -> list[str]:
@@ -91,21 +102,54 @@ def _poradi_kategorii(wb: Workbook, nast: dict, lode: list) -> list[str]:
     return por
 
 
-def nasad(lode: list[dict], wb: Workbook, nast: dict) -> dict:
+def nasad(lode: list[dict], wb: Workbook, nast: dict, i_s_problemy: bool = False) -> dict:
     reg = Registr.ze_sesitu(wb)
     param = read_param(wb)
     pole = {k: v['hodnota'] for k, v in param['pole'].items()}
+    if str(pole.get('Hlídky', '')).strip().lower() == 'ano':
+        raise SystemExit('Sešit je hlídkový (param Hlídky = ano) — startovku hlídek dělá hlidky.py.')
+    for l in lode:
+        if not l.get('rgc') or not l.get('kat'):
+            raise SystemExit(f"Loď {l.get('zdroj') or l} nemá `kat` nebo `rgc` — lode.json musí být seznam lodí "
+                             '(prihlasky.py); hlídky patří do hlidky.py.')
     disciplina = str(pole.get('Disciplína') or 'slalom')
     nast = _merge(VYCHOZI, nast)
     seed = nast['nasazeni'].get('seed')
     if seed is None:
         seed = random.SystemRandom().randrange(1, 10 ** 9)
     rnd = random.Random(seed)
-    zebricky = nacti_zebricek(nast['nasazeni']['zebricek']) if nast['nasazeni'].get('zebricek') else {}
+    varovani = []
+    _zeb_cache = {}
+
+    def zebricek_pro(path):   # žebříček může být globální i jen pro jednu kategorii
+        if path not in _zeb_cache:
+            data, var = nacti_zebricek(path)
+            _zeb_cache[path] = data
+            varovani.extend(var)
+        return _zeb_cache[path]
+
+    # lodě s nevyřešenými problémy z kontroly přihlášek se nezapisují (prázdné jméno v Eskymu)
+    nezapsano = []
+    if not i_s_problemy:
+        ok = []
+        for l in lode:
+            pr = (l.get('kontrola') or {}).get('problemy') or []
+            if pr:
+                nezapsano.append({'zdroj': l.get('zdroj'), 'kat': l['kat'], 'rgc': l['rgc'],
+                                  'jmena': l.get('jmena', []), 'duvod': '; '.join(pr)})
+            else:
+                ok.append(l)
+        lode = ok
+
+    metody = {_merge(nast, nast.get('kategorie', {}).get(k, {}))['nasazeni']['metoda']
+              for k in {l['kat'] for l in lode}}
+    if 'eskymo-los' in metody and len(metody) > 1:
+        raise SystemExit('Metodu eskymo-los nejde kombinovat s jinými: Eskymo čísluje každou kategorii od 1 '
+                         'a čísla by kolidovala. Použij eskymo-los pro všechny kategorie, nebo vt-los.')
 
     plan = {'vytvoreno': dt.datetime.now().isoformat(timespec='seconds'),
             'zavod': {k: pole.get(k) for k in ('Název závodu', 'Datum závodu', 'Číslo závodu', 'Disciplína')},
-            'nastaveni': nast, 'seed': seed, 'kategorie': []}
+            'nastaveni': nast, 'seed': seed, 'kategorie': [], 'varovani': varovani, 'nezapsano': nezapsano}
 
     for kat in _poradi_kategorii(wb, nast, lode):
         ls = [l for l in lode if l['kat'] == kat]
@@ -113,7 +157,8 @@ def nasad(lode: list[dict], wb: Workbook, nast: dict) -> dict:
             continue
         kn = _merge(nast, nast.get('kategorie', {}).get(kat, {}))['nasazeni']
         metoda, smer = kn['metoda'], kn['smer']
-        skupiny = VT_SKUPINY_ESKYMO if kn.get('skupiny') == 'eskymo' else VT_SKUPINY_PRAVIDLA
+        skupiny = {'eskymo': VT_SKUPINY_ESKYMO, 'pravidla-4': VT_SKUPINY_PRAVIDLA4}.get(
+            kn.get('skupiny'), VT_SKUPINY_PRAVIDLA)
         polozky = []
         for l in ls:
             osoby = [reg.get(r) for r in l['rgc']]
@@ -144,9 +189,20 @@ def nasad(lode: list[dict], wb: Workbook, nast: dict) -> dict:
                 for p in poradi:
                     p['duvod'] = 'los v Eskymu (tlačítko Losování)'
         elif metoda == 'zebricek':
-            z = zebricky.get(kat, {})
+            if not kn.get('zebricek'):
+                raise SystemExit(f'{kat}: metoda „zebricek“ potřebuje soubor žebříčku (nasazeni.zebricek)')
+            z = zebricek_pro(kn['zebricek']).get(kat, {})
             ranked = [p for p in polozky if _klic(p['rgc']) in z]
             unranked = [p for p in polozky if _klic(p['rgc']) not in z]
+            if not ranked:
+                raise SystemExit(f'{kat}: metoda „zebricek“, ale žádná přihlášená loď není v žebříčku '
+                                 f'(v CSV pro {kat}: {len(z)} řádků) — zkontroluj kódy kategorií a RGC v žebříčku.')
+            prihlaseni = {_klic(p['rgc']) for p in polozky}
+            chybi = [k for k in z if k not in prihlaseni]
+            if chybi:
+                plan['varovani'].append(f'{kat}: {len(chybi)} lodí ze žebříčku není přihlášeno (např. {chybi[:5]}) '
+                                        '— jen pro kontrolu úplnosti přihlášek.')
+            plan['varovani'].append(f'{kat}: v žebříčku {len(ranked)} lodí, nezařazených {len(unranked)}.')
             ranked.sort(key=lambda p: z[_klic(p['rgc'])], reverse=(smer == 'nejslabsi-prvni'))
             for p in ranked:
                 p['duvod'] = f"žebříček {z[_klic(p['rgc'])]}."
@@ -177,6 +233,39 @@ def nasad(lode: list[dict], wb: Workbook, nast: dict) -> dict:
     return plan
 
 
+def dohlas(plan: dict, wb: Workbook, kat: str, rgc: list[str], stc: int, pozice: str = 'konec') -> dict:
+    """Dohláška po zápisu: přidá loď s pevným číslem do uloženého plánu; ostatní čísla zůstanou.
+
+    Pak znovu `zapis … --prepsat` s čísly v režimu `pevne`.
+    """
+    kat = kategorie_eskymo(kat) or kat
+    reg = Registr.ze_sesitu(wb)
+    osoby = [reg.get(r) for r in rgc]
+    if not all(osoby):
+        raise SystemExit(f'RGC {[r for r, o in zip(rgc, osoby) if not o]} není v reg/cizi — nejdřív Import registru '
+                         'nebo doplnit cizince.')
+    if any(p.get('stc') is None for kk in plan['kategorie'] for p in kk['lode']):
+        raise SystemExit('V plánu chybí čísla — dohláška jde až po prvním `zapis` (ten čísla do plánu uloží).')
+    k = next((x for x in plan['kategorie'] if x['kat'] == kat), None)
+    if k is None:
+        k = {'kat': kat, 'metoda': 'pevne', 'smer': '', 'lode': []}
+        plan['kategorie'].append(k)
+    if any(p.get('stc') == stc for p in k['lode']):
+        raise SystemExit(f'Číslo {stc} už v kategorii {kat} je.')
+    disc = str(plan['zavod'].get('Disciplína') or 'slalom')
+    pol = {'rgc': [str(r) for r in rgc], 'jmeno': ' / '.join(o.cele_jmeno for o in osoby),
+           'rok': ' / '.join(str(o.rok) for o in osoby if o.rok),
+           'oddil': ' / '.join(dict.fromkeys(o.oddil for o in osoby)),
+           'vt': reg.vt_lode(rgc, kat, disc), 'stc': stc, 'duvod': 'dohláška'}
+    if pozice == 'zacatek':
+        k['lode'].insert(0, pol)
+    elif pozice.isdigit():
+        k['lode'].insert(int(pozice) - 1, pol)
+    else:
+        k['lode'].append(pol)
+    return plan
+
+
 def _data_rows(sheet) -> list[int]:
     """Indexy řádků startovky s předgenerovaným id (řádek 3 = index 2 …)."""
     vals = sheet.values(max_cols=3)
@@ -194,6 +283,7 @@ def zapis(plan: dict, wb: Workbook, nast: dict, prepsat: bool = False) -> dict:
         res = C.prirad([(k['kat'], len(k['lode'])) for k in kats], cn['rezim'], cn.get('start'),
                        int(cn.get('mezera') or 0), cn.get('vynechat') or [], int(cn.get('zarovnani') or 10),
                        cn.get('max'), pevne)
+    upozorneni = []
     for k in kats:
         sh = wb.sheet(f"{k['kat']}_sl")
         rows = _data_rows(sh)
@@ -203,19 +293,23 @@ def zapis(plan: dict, wb: Workbook, nast: dict, prepsat: bool = False) -> dict:
         obsazeno = [r for r in rows if sh.get(r, 1) not in (None, '') or sh.get(r, 2) not in (None, '', ' ')]
         if obsazeno and not prepsat:
             raise SystemExit(f"{k['kat']}_sl už obsahuje data ({len(obsazeno)} řádků). "
-                             'Použij čistou šablonu, nebo --prepsat (smaže stč, rgc a poznámku v celém listu).')
+                             'Použij čistou šablonu, nebo --prepsat (smaže stč a rgc v celém listu).')
         if prepsat:
             for r in rows:
-                for c in (1, 2, 10):
+                for c in (1, 2):
                     if sh.get(r, c) not in (None, ''):
                         sh.set_input(r, c, None)
+            pozn = [r + 1 for r in rows if sh.get(r, 10) not in (None, '')]
+            if pozn:
+                upozorneni.append(f"{k['kat']}_sl: poznámky (sl. K) na řádcích {pozn[:10]} zůstaly na místě — "
+                                  'po přeřazení lodí je zkontroluj')
         for i, p in enumerate(k['lode']):
             r = rows[i]
             if res is not None and k['metoda'] != 'eskymo-los':
                 p['stc'] = res['cisla'][k['kat']][i]
                 sh.set_input(r, 1, p['stc'])
             sh.set_input(r, 2, rgc_cell_value(' '.join(p['rgc'])))
-    return {'plan': plan, 'cisla': res}
+    return {'plan': plan, 'cisla': res, 'upozorneni': upozorneni}
 
 
 def prehled(plan: dict) -> str:
@@ -230,6 +324,12 @@ def prehled(plan: dict) -> str:
             L.append(f"| {i} | {p.get('stc') or ''} | {p['jmeno']} | {p['rok']} | {p['oddil']} | "
                      f"{p['vt'] or '—'} | {p.get('duvod', '')} |")
         L.append('')
+    if plan.get('nezapsano'):
+        L += ['## Nezapsáno (nevyřešené problémy z kontroly přihlášek)',
+              *(f"- {x['kat']} {' '.join(x['rgc'])} {' '.join(x.get('jmena', []))} ({x.get('zdroj')}): {x['duvod']}"
+                for x in plan['nezapsano']), '']
+    if plan.get('varovani'):
+        L += ['## Poznámky k nasazení', *(f'- {x}' for x in plan['varovani']), '']
     return '\n'.join(L)
 
 
@@ -242,6 +342,15 @@ def main(argv=None):
     a1.add_argument('-c', '--nastaveni')
     a1.add_argument('-o', '--out', required=True)
     a1.add_argument('--prehled', help='kam uložit přehled (Markdown)')
+    a1.add_argument('--i-s-problemy', action='store_true',
+                    help='nasadit i lodě s nevyřešenými PROBLÉMY z kontroly přihlášek (jinak se vynechají a vypíšou)')
+    a3 = sub.add_parser('dohlas', help='dohláška po zápisu: přidá loď s pevným číslem do plánu')
+    a3.add_argument('plan')
+    a3.add_argument('sesit')
+    a3.add_argument('--kat', required=True)
+    a3.add_argument('--rgc', required=True, nargs='+', help='RGC (C2: dvě)')
+    a3.add_argument('--stc', required=True, type=int)
+    a3.add_argument('--pozice', default='konec', help='zacatek | konec | pořadí (1 = první startující)')
     a2 = sub.add_parser('zapis')
     a2.add_argument('plan')
     a2.add_argument('sesit')
@@ -250,16 +359,24 @@ def main(argv=None):
     a2.add_argument('--prepsat', action='store_true')
     a2.add_argument('--prehled')
     a = ap.parse_args(argv)
-    nast = json.load(open(a.nastaveni, encoding='utf-8')) if a.nastaveni else {}
+    nast = json.load(open(a.nastaveni, encoding='utf-8')) if getattr(a, 'nastaveni', None) else {}
+
+    if a.cmd == 'dohlas':
+        plan = dohlas(json.load(open(a.plan, encoding='utf-8')), Workbook(a.sesit), a.kat, a.rgc, a.stc, a.pozice)
+        json.dump(plan, open(a.plan, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+        print(f'Dohláška přidána do {a.plan}. Zapiš znovu: startovka.py zapis {a.plan} <sablona.ods> <vystup.ods> '
+              '--prepsat -c <nastaveni.json s "cisla": {"rezim": "pevne"}>')
+        return 0
 
     if a.cmd == 'nasad':
         data = json.load(open(a.lode, encoding='utf-8'))
         if isinstance(data, dict):
-            if data.get('souhrn', {}).get('problemy'):
-                print('! lode.json obsahuje nevyřešené PROBLÉMY z kontroly přihlášek — nasazuji, '
-                      'ale před zápisem je vyřeš.', file=sys.stderr)
             data = data['lode']
-        plan = nasad(data, Workbook(a.sesit), nast)
+        plan = nasad(data, Workbook(a.sesit), nast, a.i_s_problemy)
+        for x in plan['nezapsano']:
+            print(f"! NEZAPSÁNO {x['kat']} {' '.join(x['rgc'])} ({x.get('zdroj')}): {x['duvod']}", file=sys.stderr)
+        for x in plan['varovani']:
+            print(f'! {x}', file=sys.stderr)
         json.dump(plan, open(a.out, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
         txt = prehled(plan)
         if a.prehled:
@@ -282,6 +399,8 @@ def main(argv=None):
     json.dump(res['plan'], open(a.plan, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     if res['cisla']:
         print(C.popis(res['cisla'], [k['kat'] for k in plan['kategorie']]))
+    for u in res['upozorneni']:
+        print(f'! {u}')
     if a.prehled:
         open(a.prehled, 'w', encoding='utf-8').write(prehled(res['plan']))
     print(f'Zapsáno → {a.vystup}. Výsledky vzorců jsou zastaralé: ověř přes verify_workbook.py '

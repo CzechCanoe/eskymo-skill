@@ -57,7 +57,8 @@ python scripts/check_rules.py --sesit zavod.ods         # platí výtah pravidel
 python scripts/inspect_workbook.py zavod.ods            # co je to za sešit, co v něm chybí
 ```
 
-- **`check_rules.py`**: skill má zadrátovaný výtah Pravidel 2022 a Směrnic 2026
+- **`check_rules.py`** (potřebuje síť; u čistě technických úloh — převod časů, kontrola sešitu —
+  ho lze přeskočit): skill má zadrátovaný výtah Pravidel 2022 a Směrnic 2026
   (`references/pravidla-2026.md`). Když verdikt není OK (nová sezóna, opravená příloha),
   stáhni aktuální dokumenty (`--stahnout DIR`), přečti relevantní části a řiď se jimi. Rozdíl
   proti výtahu řekni pořadateli. Offline → pracuj s výtahem a řekni, že platnost nebyla ověřena.
@@ -89,7 +90,8 @@ python scripts/inspect_workbook.py zavod.ods            # co je to za sešit, co
    a zkontroluj `prihlasky.py over`. PROBLÉMY vyřeší pořadatel, dřív se nezapisuje.
 3. **Nasazení.** Najdi pravidlo pro typ soutěže (`references/startovka.md` → tabulka podle Směrnic).
    `startovka.py nasad` → přehled s důvody → pořadatel potvrdí (případně ruční úpravy v plan.json).
-4. **Čísla a zápis.** `startovka.py zapis` (čísla lze měnit bez nového losu). Hlídky: `hlidky.py`.
+4. **Čísla a zápis.** `startovka.py zapis` (čísla lze měnit bez nového losu; dohlášky `startovka.py dohlas`).
+   Hlídky: `hlidky.py`.
 5. **Kontrola.** `verify_workbook.py vystup.ods --plan plan.json`. Pak předání (níže).
 6. **Závod.** Časy: `canoe123.py` (Canoe123), nebo `casy.py` (CSV, protokoly), nebo ruční zadávání
    v Eskymu. `verify_workbook.py --vysledky`.

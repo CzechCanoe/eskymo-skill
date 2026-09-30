@@ -66,6 +66,8 @@ def je_debl(kat: str) -> bool:
 VT_PORADI = ['MT', '1', '2+', '2', '3+', '3', '']
 # Skupiny podle Pravidel 2.17.01: (1) MT a 1, (2) 2+, (3) 2, (4) 3+, (5) 3, (6) bez VT
 VT_SKUPINY_PRAVIDLA = [['MT', '1'], ['2+'], ['2'], ['3+'], ['3'], ['']]
+# Starší čtení P 2.17.01 (v docx Pravidel 2022 je číslování seznamu pomíchané: 4 skupiny)
+VT_SKUPINY_PRAVIDLA4 = [['MT', '1'], ['2+', '2'], ['3+', '3'], ['']]
 # Skupiny losování v Eskymu (SpreadsheetUtils.losovani), od nejhorší: 0/'', 3, 3+, 2, 2+, 1, MT
 VT_SKUPINY_ESKYMO = [['MT'], ['1'], ['2+'], ['2'], ['3+'], ['3'], ['']]
 

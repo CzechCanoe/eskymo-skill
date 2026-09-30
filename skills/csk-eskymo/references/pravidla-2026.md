@@ -665,6 +665,10 @@ _76 oddílů._
 - Předjezdci na nemistrovských závodech.
 
 **Nejasnosti v textech:**
+0. **P 2.17.01 — 4, nebo 6 skupin VT?** V docx Pravidel 2022 je první část výčtu automaticky číslovaná
+   (MT a 1, 2+, 2, 3+) a pak ručně „3) Lodě 3. VT“, „4) Lodě bez VT“ — pozůstatek starší verze se 4 skupinami
+   (2+ a 2 spolu, 3+ a 3 spolu). Doslovně 6 skupin (výchozí `skupiny: pravidla`); VR může znát 4
+   (`skupiny: pravidla-4`). Zeptat se pořadatele/VR.
 1. **Nezařazení „na začátek… od nejlepší VT po nejhorší“** – doslovně první startuje nejlepší VT z nezařazených; působí to opačně než logika obráceného žebříčku a než losování Eskyma. Potvrdit s pořadatelem/počtářkou.
 2. **ČPw:** „z průběžného pořadí od nejhorších k nejlepším a to pouze v klasických sjezdech“ – buď se pro klasik i sprint nasazuje podle průběžného pořadí jen z klasiků, nebo pravidlo platí jen pro klasiky. Nasazení kvalifikace sprintu jinak neuvedeno.
 3. **MČR žáků sprint** podle „průběžného žebříčku ČPŽ pro rok 2026“ (slalomového? sjezdového ČPŽw?) a **klasik podle ČPžw 2025** (loňský); obdobně MČR dorostu sjezd – kategorie žáků podle ČPžw 2025.

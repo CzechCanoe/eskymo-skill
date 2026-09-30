@@ -14,7 +14,8 @@ verify_workbook — povinná kontrola sešitu po každém zápisu.
 3. Proti plánu / lode.json: počty lodí po kategoriích a všechna RGC na svém místě.
 4. --vysledky: každá jízda zapsaného závodníka má čas nebo stav (DNS/DNF/DSQ…),
    stav má penalizaci 999, žádná prázdná buňka (prázdný čas ve sjezdu = čas 0 → 1. místo!).
-Vrací 0 = bez problémů, 1 = problémy, 2 = sešit nejde zkontrolovat.
+Vrací 0 = bez problémů, 1 = problémy, 2 = sešit nejde zkontrolovat (není LibreOffice a chybí
+--bez-prepoctu; s --bez-prepoctu se navíc porovnají nacachovaná jména s registrem).
 """
 from __future__ import annotations
 
@@ -42,7 +43,8 @@ def _prazdne(v) -> bool:
     return v is None or (isinstance(v, str) and not v.strip())
 
 
-def zkontroluj(path: str, plan=None, lode=None, vysledky=False, cisla_v_kategorii=False) -> dict:
+def zkontroluj(path: str, plan=None, lode=None, vysledky=False, cisla_v_kategorii=False,
+               jmena_z_registru=False) -> dict:
     wb = Workbook(path)
     if not wb.has('param'):
         return {'problemy': ['sešit nemá list param — není z Eskyma'], 'varovani': [], 'info': [], 'pocty': {}}
@@ -54,6 +56,13 @@ def zkontroluj(path: str, plan=None, lode=None, vysledky=False, cisla_v_kategori
     kats = [k['kod'].lower() for k in param['kategorie']]
     P, V, I = [], [], []
     pocty, rgc_v_kat, vsechna_stc = {}, defaultdict(list), []
+    reg_kontrola = None
+    if jmena_z_registru:  # bez přepočtu: nacachované jméno musí odpovídat RGC (stará šablona!)
+        from registr import Registr
+        reg_kontrola = Registr.ze_sesitu(wb)
+    if str(pole.get('Startovní časy', '')).strip().lower() == 'ano':
+        I.append('Startovní časy = ano: časy počítá Eskymo z rozpisu na param (začátek, interval, pauza, pořadí #) '
+                 'v pořadí řádků — ověř v Eskymu, že pořadí kategorií (#) odpovídá rozpisu a časy jsou vyplněné.')
 
     if hlidky and wb.has('hlidky'):
         from registr import Registr
@@ -93,6 +102,11 @@ def zkontroluj(path: str, plan=None, lode=None, vysledky=False, cisla_v_kategori
                 P.append(f'{ozn}: prázdné jméno — RGC není v reg/cizi (nebo sešit není přepočítaný)')
             if not _je_chyba(row[7]) and _prazdne(row[7]):
                 P.append(f'{ozn}: prázdný oddíl')
+            if reg_kontrola and not hlidky and isinstance(row[3], str) and row[3].strip():
+                o = reg_kontrola.get(str(row[2]).split()[0] if row[2] else '')
+                if o and o.prijmeni and o.prijmeni.upper()[:10] not in row[3].upper():
+                    P.append(f'{ozn}: jméno „{row[3].splitlines()[0].strip()}“ nesedí na RGC ({o.cele_jmeno}) — '
+                             'sešit není přepočítaný (Ctrl+Shift+F9) nebo je to stará šablona')
             if isinstance(row[4], str) and _PROHLIDKA.match(row[4].strip()):
                 I.append(f'{ozn}: {str(row[3]).splitlines()[0]} — bez platné lékařské prohlídky (#)')
             if isinstance(row[1], float):
@@ -230,14 +244,15 @@ def main(argv=None):
             target = recalc(a.ods, tmp)
             prepocet = 'LibreOffice headless (kopie)'
         except RuntimeError as e:
-            prepocet = f'NEPROBĚHL ({e}) — kontroluji uložené hodnoty; platné jen pro soubor přepočítaný v Eskymu'
-            target = a.ods
+            print(f'PŘEPOČET NEPROBĚHL ({e}).\nKontrola bez přepočtu není průkazná: nech sešit v Eskymu přepočítat '
+                  '(Ctrl+Shift+F9), ulož ho a spusť znovu s --bez-prepoctu, nebo nainstaluj LibreOffice.')
+            return 2
     plan = json.load(open(a.plan, encoding='utf-8')) if a.plan else None
     lode = None
     if a.lode:
         d = json.load(open(a.lode, encoding='utf-8'))
         lode = d['lode'] if isinstance(d, dict) else d
-    rep = zkontroluj(target, plan, lode, a.vysledky, a.cisla_v_kategorii)
+    rep = zkontroluj(target, plan, lode, a.vysledky, a.cisla_v_kategorii, jmena_z_registru=a.bez_prepoctu)
     print(format_report(rep, prepocet))
     if tmp:
         import shutil

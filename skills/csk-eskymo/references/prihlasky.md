@@ -83,8 +83,9 @@ Hlídky mají vlastní tvar (`hlidky.json`, viz `hlidky.md`); z CSV exportu je v
   A-kódy generuje; při ručním doplnění: `A` + 5 číslic navazující na maximum v `cizi`,
   sloupce jako `reg` (A RGC, B příjmení, C jméno, D ročník, E pohlaví, M oddíl/stát).
 - **Odhlášky**: omluvené do pátku 18:00 do startovky nepatří; omluvené na poradě / neomluvené
-  ve startovce zůstávají (DNS-B / DNS, S26 §1). Při pozdní odhlášce stačí smazat rgc a stč
-  řádku (nemazat řádek) — nebo nechat a ve výsledcích zadat stav.
-- **Dohlášky na místě**: stejný postup, jen jedna loď → `startovka.py` s čísly z rezervy
-  (`cisla.rezim = pevne` pro konkrétní číslo), nebo ručně v Eskymu.
+  ve startovce zůstávají (S26 §1). Eskymo má stavy DNS-A / DNS-B („omluven“) a DNS — jak je přiřadit
+  k lhůtám S26, není nikde definováno; návrh (omluven do porady = DNS-B, neomluven = DNS) ověř s VR.
+  Při pozdní odhlášce stačí smazat rgc a stč řádku (nemazat řádek) — nebo nechat a ve výsledcích zadat stav.
+- **Dohlášky na místě**: `startovka.py dohlas` + `zapis --prepsat` s čísly `pevne` (recept v
+  `startovka.md` §2), nebo ručně v Eskymu.
 - **Závodní společenství / C2 ze dvou oddílů**: v pořádku; Eskymo tiskne oba oddíly.

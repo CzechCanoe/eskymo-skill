@@ -41,7 +41,8 @@ buněk a kroky v Eskymu (tisk, body, odeslání) nechává člověku — s přes
 ```
 
 **Claude desktop / claude.ai / Cowork**: stáhni `csk-eskymo.zip` z
-[Releases](https://github.com/CzechCanoe/eskymo-skill/releases) (nebo `python tools/build_skill_zip.py`)
+[Releases](https://github.com/CzechCanoe/eskymo-skill/releases) nebo z artefaktu posledního běhu
+[Actions](https://github.com/CzechCanoe/eskymo-skill/actions) (případně `python tools/build_skill_zip.py`)
 a nahraj ho v Nastavení → Capabilities → Skills.
 
 **Jiné harnessy** (standard [Agent Skills](https://agentskills.io)): zkopíruj složku

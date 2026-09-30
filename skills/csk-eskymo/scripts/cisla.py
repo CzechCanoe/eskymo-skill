@@ -92,8 +92,17 @@ def prirad(kategorie: list[tuple[str, int]], rezim: str = 'desitky', start: int 
 def _zkontroluj(res: dict, rezim: str, max_cislo, vyn: set) -> dict:
     """Povinné kontroly: unikátnost (kromě sestupne-kat), vynechaná čísla, rozsah."""
     vse = [c for cs in res['cisla'].values() for c in cs]
-    if rezim != 'sestupne-kat' and len(set(vse)) != len(vse):
-        raise ChybaCisel('startovní čísla nejsou unikátní napříč závodem')
+    res['varovani'] = []
+    if len(set(vse)) != len(vse):
+        if rezim in ('sestupne-kat', 'pevne'):
+            # ČPw / KC (poslední = 1) a ČP slalom (číslo = loňské umístění v kategorii) mají čísla
+            # po kategoriích — shoda mezi kategoriemi je norma (barevná čísla)
+            if rezim == 'pevne':
+                dup = sorted({c for c in vse if vse.count(c) > 1})
+                res['varovani'].append(f'čísla se opakují mezi kategoriemi {dup[:12]} — v pořádku jen při '
+                                       'barevných číslech po kategoriích (ČP slalom, ČPw)')
+        else:
+            raise ChybaCisel('startovní čísla nejsou unikátní napříč závodem')
     for kat, cs in res['cisla'].items():
         if len(set(cs)) != len(cs):
             raise ChybaCisel(f'{kat}: duplicitní startovní čísla')
@@ -123,4 +132,6 @@ def popis(res: dict, poradi: list[str]) -> str:
         L.append(s)
     if res.get('nevyuzita_vynechana'):
         L.append(f"! vynechaná čísla mimo rozsah (dotaz na zadání?): {res['nevyuzita_vynechana']}")
+    for v in res.get('varovani', []):
+        L.append(f'! {v}')
     return '\n'.join(L)

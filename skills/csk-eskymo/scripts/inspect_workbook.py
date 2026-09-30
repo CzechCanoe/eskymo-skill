@@ -68,7 +68,7 @@ def inspect(path: str) -> dict:
     if 'param' not in names:
         rep['typ'] = 'neeskymovsky'
         rep['varovani'].append('Sešit nemá list `param` — není to sešit vygenerovaný Eskymem '
-                               '(např. cross šablona). Pracuj podle references/vysledky-cross.md.')
+                               '(např. cross šablona). Pracuj podle references/vysledky.md §4 (Kros).')
         return rep
     rep['typ'] = 'eskymo'
     param = read_param(wb)

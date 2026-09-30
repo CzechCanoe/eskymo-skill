@@ -144,7 +144,7 @@ přeházené — zapisuj podle id, ne podle pozice.
 - `id` v `_sl` je statické číslo; ve výsledkovém listu je tatáž množina id (po řazení v jiném pořadí).
   Každé id musí být ve výsledkovém listu právě jednou — duplicita = Eskymo zdvojí závodníka
   (`inspect_workbook.py` hlásí). Canoe123 převod id přečísluje sám.
-- Kapacita = `param` #řádek (B52; výchozí 150, u hlídek 60). Víc lodí se nevejde — sešit je potřeba
+- Kapacita = `param` #řádek (B52; výchozí 150, u hlídek pořadatelé volí méně, např. 60). Víc lodí se nevejde — sešit je potřeba
   založit znovu s vyšším #řádek (vzorce jsou natvrdo na rozsah).
 
 ## 9. Pravidla pro zápis (shrnutí)
