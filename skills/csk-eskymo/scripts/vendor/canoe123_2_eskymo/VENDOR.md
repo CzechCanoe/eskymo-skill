@@ -4,8 +4,8 @@ Zdroj: <https://github.com/CzechCanoe/canoe123-2-eskymo> (MIT, viz `LICENSE`).
 
 | | |
 |---|---|
-| commit | `704735a9d2fbd0ed7215c53a617e75594d5c4c8c` (2026-09-30) |
-| stav | main po sloučení PR #1 (české kódy žen) a PR #2 (kapacita, nejednoznačná jména) |
+| commit | `4b9a4f67639e3f9f17afdf906c2f950a3f560431` (2026-09-30) |
+| stav | main po sloučení PR #1 (české kódy žen), PR #2 (kapacita, nejednoznačná jména) a PR #3 (anonymizace testovacích dat) |
 | soubory | `canoe2eskymo.py` (slalom), `cross.py` (kajak kros), `LICENSE` |
 
 Soubory se **needitují ručně**. Oprava patří do upstream repa (PR), pak se sem

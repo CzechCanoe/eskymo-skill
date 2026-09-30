@@ -233,7 +233,7 @@ def _strip_diacritics(s: str) -> str:
     """Odstraní diakritiku (NFKD rozklad + odfiltrování combining znaků).
 
     Použito jako fallback při lookupu jmen — Canoe123 export občas obsahuje
-    překlep v diakritice (např. 'MRÚZEK' místo 'MRŮZEK' v `reg`), který by
+    překlep v diakritice (např. 'HÚTAN' místo 'HŮTAN' v `reg`), který by
     jinak přesný lookup shodil na "cizinec, který v cizi chybí".
     """
     return "".join(
@@ -304,7 +304,7 @@ def lookup_person(family: str, given: str, year: str, registry: dict) -> str | N
         candidates = registry["by_name"].get((fam, giv), [])
         if not candidates:
             # Fallback: jméno se přesně nenašlo — zkusit bez diakritiky
-            # (typický Canoe123 quirk: 'MRÚZEK' v XML vs. 'MRŮZEK' v reg).
+            # (typický Canoe123 quirk: 'HÚTAN' v XML vs. 'HŮTAN' v reg).
             candidates = registry["by_name_normalized"].get(
                 (_strip_diacritics(fam), _strip_diacritics(giv)), []
             )
@@ -369,7 +369,7 @@ def add_foreigner(family: str, given: str, club: str, registry: dict,
 
 
 def split_double_icf(icf: str, p: dict, registry: dict) -> tuple[str, str] | None:
-    """Rozdělí slepené ICFId (např. '108112032') na dva RGC ('1081', '12032').
+    """Rozdělí slepené ICFId (např. '149422208') na dva RGC ('1494', '22208').
 
     Strategie:
       1) Najít RGC1 a RGC2 podle jména pádlerů (+ rok pro disambiguaci).
